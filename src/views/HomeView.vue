@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>
 
@@ -13,6 +13,9 @@ export default Vue.extend({
   name: 'HomeView',
   components: {
     HelloWorld,
+  },
+  setup() {
+    console.log(process.env.NODE_ENV);
   },
 });
 </script>
