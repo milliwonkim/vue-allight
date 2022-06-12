@@ -1,20 +1,19 @@
-<template lang="">
-  <header class="header">
+<template>
+  <header class="header" ref="refs">
     <div class="logo-title-box">
-      <p class="logo-title">
-
-      ALLIGHT
-      </p>
+      <p class="logo-title">ALLIGHT</p>
     </div>
     <nav class="nav-list">
-      <a-button :key="headerButton" v-for="headerButton in headerList">
+      <v-app-bar-nav-icon v-if="show"></v-app-bar-nav-icon>
+      <a-button v-else :key="headerButton" v-for="headerButton in headerList">
         {{ headerButton }}
       </a-button>
     </nav>
   </header>
 </template>
+
 <script>
-import { ref } from '@vue/composition-api';
+import { onMounted, onUnmounted, ref } from '@vue/composition-api';
 import AButton from './AButton.vue';
 
 export default {
@@ -26,7 +25,30 @@ export default {
     const BUTTONS = ['상담받기', '피드', '나의 일기장', '로그인', '회원가입'];
     const headerList = ref(BUTTONS);
 
+    const refs = ref(null);
+
+    const show = ref(false);
+
+    const handleWidth = () => {
+      if (refs.value.clientWidth < 640) {
+        show.value = true;
+      } else {
+        show.value = false;
+      }
+    };
+
+    onMounted(() => {
+      handleWidth();
+      window.addEventListener('resize', handleWidth);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', handleWidth);
+    });
+
     return {
+      refs,
+      show,
       headerList,
     };
   },
@@ -35,8 +57,13 @@ export default {
 <style lang="scss">
 .header {
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  margin: 24px 48px;
+  margin: 24px 0;
+
+  @media (max-width: 625px) {
+    margin: 24px 0;
+  }
 }
 
 .nav-list {

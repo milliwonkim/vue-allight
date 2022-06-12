@@ -1,6 +1,8 @@
-<template lang="">
+<template>
   <button class="default">
-    <slot/>
+    <div class="button-label-box">
+      <slot />
+    </div>
   </button>
 </template>
 
@@ -12,18 +14,25 @@ export default {
 
 <style lang="scss">
 .default {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   box-sizing: border-box;
   padding: 8px 16px;
   background-color: #ffffff;
   border: 1px solid transparent;
+  font-size: 16px;
 
   &:hover,
   &:active {
-    cursor: pointer;
     background-color: #000000;
     color: #ffffff;
     border-radius: 16px;
+    cursor: pointer;
   }
+}
+
+.button-label-box {
+  margin-top: 3px;
 }
 </style>
