@@ -5,8 +5,13 @@
     </div>
     <nav class="nav-list">
       <v-app-bar-nav-icon v-if="show"></v-app-bar-nav-icon>
-      <a-button v-else :key="headerButton" v-for="headerButton in headerList">
-        {{ headerButton }}
+      <a-button
+        v-else
+        :key="headerButton.id"
+        v-for="headerButton in headerList"
+        @clickHandler="handleRoute(headerButton.link)"
+      >
+        {{ headerButton.name }}
       </a-button>
     </nav>
   </header>
@@ -14,8 +19,10 @@
 
 <script>
 import { ref } from '@vue/composition-api';
+import router from '@/router';
+import { HEADER_BUTTONS } from '@/constants/constants';
 import AButton from './AButton.vue';
-import useResize from '../utils/useResize';
+import useResize from '../hooks/useResize';
 
 export default {
   name: 'a-header',
@@ -23,18 +30,23 @@ export default {
     'a-button': AButton,
   },
   setup() {
-    const BUTTONS = ['상담받기', '피드', '나의 일기장', '로그인', '회원가입'];
-    const headerList = ref(BUTTONS);
+    const headerList = ref(HEADER_BUTTONS);
 
     const refs = ref(null);
     const show = ref(false);
 
     useResize(refs, show);
+    const handleRoute = (link) => {
+      if (window.location.pathname !== link) {
+        router.push(link);
+      }
+    };
 
     return {
       refs,
       show,
       headerList,
+      handleRoute,
     };
   },
 };

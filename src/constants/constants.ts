@@ -1,3 +1,5 @@
+import URLS_LIST from './urls';
+
 export const URLS = [
   {
     image:
@@ -59,5 +61,25 @@ export const URL_LISTS = URLS.map((el, i) => ({
   ...el,
   id: i,
 }));
+
+export const HEADER_BUTTONS = [
+  {
+    id: 1,
+    name: '상담받기',
+    link: `/${URLS_LIST.CONSULTING}`,
+  },
+  {
+    id: 2,
+    name: '피드',
+    link: `/${URLS_LIST.NEW_FEEDS}`,
+  },
+  {
+    id: 3,
+    name: '나의 일기장',
+    link: `/${URLS_LIST.DIARY}`,
+  },
+  { id: 4, name: '로그인', link: '/login' },
+  { id: 5, name: '회원가입', link: '/sign-up' },
+];
 
 export default { URL_LISTS };

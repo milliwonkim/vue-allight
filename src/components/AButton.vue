@@ -1,5 +1,5 @@
 <template>
-  <button class="default">
+  <button @click="handleClick" class="default">
     <div class="button-label-box">
       <slot />
     </div>
@@ -9,6 +9,13 @@
 <script>
 export default {
   name: 'a-button',
+  setup(_, context) {
+    function handleClick() {
+      context.emit('clickHandler');
+    }
+
+    return { handleClick };
+  },
 };
 </script>
 
