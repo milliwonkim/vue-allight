@@ -9,9 +9,7 @@ import AHeader from './components/AHeader.vue';
 
 export default {
   name: 'App',
-  components: {
-    'a-header': AHeader,
-  },
+  components: { 'a-header': AHeader },
 };
 </script>
 

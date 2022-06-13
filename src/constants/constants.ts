@@ -1,4 +1,4 @@
-import URLS_LIST from './urls';
+import { CONSULTING, DIARY, LOGIN, NEW_FEEDS, SIGN_UP } from './urls';
 
 export const URLS = [
   {
@@ -66,20 +66,20 @@ export const HEADER_BUTTONS = [
   {
     id: 1,
     name: '상담받기',
-    link: `/${URLS_LIST.CONSULTING}`,
+    link: `/${CONSULTING}`,
   },
   {
     id: 2,
     name: '피드',
-    link: `/${URLS_LIST.NEW_FEEDS}`,
+    link: `/${NEW_FEEDS}`,
   },
   {
     id: 3,
     name: '나의 일기장',
-    link: `/${URLS_LIST.DIARY}`,
+    link: `/${DIARY}`,
   },
-  { id: 4, name: '로그인', link: '/login' },
-  { id: 5, name: '회원가입', link: '/sign-up' },
+  { id: 4, name: '로그인', link: `/${LOGIN}` },
+  { id: 5, name: '회원가입', link: `/${SIGN_UP}` },
 ];
 
 export default { URL_LISTS };

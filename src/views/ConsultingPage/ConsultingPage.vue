@@ -11,12 +11,10 @@
 import { URL_LISTS } from '@/constants/constants';
 import { onMounted, ref } from '@vue/composition-api';
 import ConsultingCardView from './ConsultingCardView.vue';
-import { IConsultingCard } from './type';
+import { IConsultingCard } from '../type';
 
 export default {
-  components: {
-    'consulting-card-view': ConsultingCardView,
-  },
+  components: { 'consulting-card-view': ConsultingCardView },
   setup() {
     const cards = ref<IConsultingCard[]>([]);
 
@@ -24,9 +22,7 @@ export default {
       cards.value = URL_LISTS;
     });
 
-    return {
-      cards,
-    };
+    return { cards };
   },
 };
 </script>

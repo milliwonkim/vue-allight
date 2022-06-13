@@ -26,9 +26,7 @@ import useResize from '../hooks/useResize';
 
 export default {
   name: 'a-header',
-  components: {
-    'a-button': AButton,
-  },
+  components: { 'a-button': AButton },
   setup() {
     const headerList = ref(HEADER_BUTTONS);
 

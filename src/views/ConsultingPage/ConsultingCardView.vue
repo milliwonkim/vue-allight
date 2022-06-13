@@ -25,22 +25,20 @@ import CardView from '@/components/CardView.vue';
 import { onMounted, ref } from '@vue/composition-api';
 import { mdiChevronRight } from '@mdi/js';
 import router from '@/router';
+import { CONSULTING } from '@/constants/urls';
 
-const ICONS = {
-  mdiChevronRight,
-};
+const ICONS = { mdiChevronRight };
 
 export default {
-  components: {
-    'card-view': CardView,
-  },
+  components: { 'card-view': CardView },
   props: ['card'],
-  setup() {
+  setup(props: any) {
     const icons = ref({});
     // const router = useRoute();
+    const cardId: number = props.card.id;
 
     const handleRoute = () => {
-      router.push('/diary');
+      router.push(`/${CONSULTING}/teacher/${cardId}`);
     };
 
     onMounted(() => {
@@ -87,6 +85,10 @@ export default {
   border-radius: 16px;
   width: 128px;
   height: 128px;
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 }
 
 .teacher-info-box {

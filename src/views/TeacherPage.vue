@@ -1,8 +1,8 @@
 <template>
-  <div>Sign Up Page</div>
+  <div></div>
 </template>
 <script lang="ts">
-export default { name: 'sign-up-page' };
+export default {};
 </script>
 <style lang="scss">
 </style>
