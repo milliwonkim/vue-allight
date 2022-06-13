@@ -45,6 +45,8 @@ export default {
       icons.value = ICONS;
     });
 
+    console.log('icons.value: ', icons.value);
+
     return {
       icons,
       handleRoute,
