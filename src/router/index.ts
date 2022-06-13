@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import ListView from '@/views/ListView.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/consulting',
     name: 'list-view',
-    component: ListView,
+    component: () => import('@/views/ConsultingPage.vue'),
   },
 ];
 

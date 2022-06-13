@@ -13,8 +13,9 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import AButton from './AButton.vue';
+import useResize from '../utils/useResize';
 
 export default {
   name: 'a-header',
@@ -26,25 +27,9 @@ export default {
     const headerList = ref(BUTTONS);
 
     const refs = ref(null);
-
     const show = ref(false);
 
-    const handleWidth = () => {
-      if (refs.value.clientWidth < 640) {
-        show.value = true;
-      } else {
-        show.value = false;
-      }
-    };
-
-    onMounted(() => {
-      handleWidth();
-      window.addEventListener('resize', handleWidth);
-    });
-
-    onUnmounted(() => {
-      window.removeEventListener('resize', handleWidth);
-    });
+    useResize(refs, show);
 
     return {
       refs,

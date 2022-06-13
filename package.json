@@ -10,6 +10,8 @@
     "serve-production": "vue-cli-service serve --mode production"
   },
   "dependencies": {
+    "@mdi/font": "^6.7.96",
+    "@mdi/js": "^6.7.96",
     "@vue/composition-api": "^1.6.2",
     "core-js": "^3.8.3",
     "reset-css": "^5.0.1",
@@ -18,7 +20,6 @@
     "vuetify": "^2.6.0"
   },
   "devDependencies": {
-    "@mdi/font": "^6.7.96",
     "@types/jest": "^27.0.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",

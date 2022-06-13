@@ -17,6 +17,7 @@
             <p>{{ card.evaluationIndex }} / 10.0</p>
           </div>
         </div>
+        <v-icon>{{ icons.mdiChevronRight }}</v-icon>
       </div>
     </card-view>
   </div>
@@ -25,6 +26,11 @@
 import CardView from '@/components/CardView.vue';
 import { onMounted, ref } from '@vue/composition-api';
 import { URL_LISTS } from '@/constants/constants';
+import { mdiChevronRight } from '@mdi/js';
+
+const ICONS = {
+  mdiChevronRight,
+};
 
 export default {
   components: {
@@ -32,12 +38,15 @@ export default {
   },
   setup() {
     const cards = ref([]);
+    const icons = ref({});
 
     onMounted(() => {
       cards.value = URL_LISTS;
+      icons.value = ICONS;
     });
 
     return {
+      icons,
       cards,
     };
   },
@@ -46,16 +55,20 @@ export default {
 <style lang="scss">
 .card-view-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
   box-sizing: border-box;
   margin: 24px 0;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1760px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1210px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (max-width: 625px) {
+  @media (max-width: 890px) {
     grid-template-columns: repeat(1, 1fr);
     margin: 24px 0;
   }
@@ -63,8 +76,8 @@ export default {
 
 .card-view-box {
   display: flex;
-  align-items: space-around;
   gap: 16px;
+  justify-content: space-between;
 }
 
 .card-view-image {

@@ -5,8 +5,10 @@
 </template>
 <style lang="scss">
 .card-container {
-  min-width: 400px;
+  max-height: 160px;
+  height: 100%;
   width: 100%;
+  word-break: keep-all;
 
   padding: 16px;
   box-sizing: border-box;
