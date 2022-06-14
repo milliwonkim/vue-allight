@@ -22,20 +22,20 @@
 </template>
 <script lang="ts">
 import CardView from '@/components/CardView.vue';
-import { onMounted, ref } from '@vue/composition-api';
+import { defineComponent, onMounted, ref, toRef } from '@vue/composition-api';
 import { mdiChevronRight } from '@mdi/js';
 import router from '@/router';
 import { CONSULTING } from '@/constants/urls';
 
 const ICONS = { mdiChevronRight };
 
-export default {
+export default defineComponent({
   components: { 'card-view': CardView },
   props: ['card'],
-  setup(props: any) {
-    const icons = ref({});
-    // const router = useRoute();
-    const cardId: number = props.card.id;
+  setup(props) {
+    const icons = ref({ mdiChevronRight: '' });
+    const card = toRef(props, 'card');
+    const cardId = Object.keys(card).length > 0 ? card.value.id : 0;
 
     const handleRoute = () => {
       router.push(`/${CONSULTING}/teacher/${cardId}`);
@@ -45,14 +45,12 @@ export default {
       icons.value = ICONS;
     });
 
-    console.log('icons.value: ', icons.value);
-
     return {
       icons,
       handleRoute,
     };
   },
-};
+});
 </script>
 <style lang="scss">
 .card-view-wrapper {

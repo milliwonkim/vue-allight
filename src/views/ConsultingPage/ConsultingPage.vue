@@ -1,10 +1,6 @@
 <template>
   <div class="card-view-wrapper">
-    <consulting-card-view
-      :key="card.id"
-      v-for="card in cards"
-      :card="card"
-    ></consulting-card-view>
+    <consulting-card-view :key="card.id" v-for="card in cards" :card="card" />
   </div>
 </template>
 <script lang="ts">

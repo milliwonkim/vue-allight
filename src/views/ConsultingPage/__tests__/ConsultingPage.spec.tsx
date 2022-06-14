@@ -1,7 +1,15 @@
-import { mount } from '@vue/test-utils';
+import { mount, createLocalVue } from '@vue/test-utils';
+import Vuetify from 'vuetify';
 import ConsultingPage from '../ConsultingPage.vue';
 
 describe('상담 페이지', () => {
+  const localVue = createLocalVue();
+  let vuetify: Vuetify;
+
+  beforeEach(() => {
+    vuetify = new Vuetify();
+  });
+
   it('상담 카드가 잘 렌더링 됐는지 확인', () => {
     const cards = [
       {
@@ -16,11 +24,12 @@ describe('상담 페이지', () => {
     ];
 
     const wrapper = mount(ConsultingPage, {
+      localVue,
+      vuetify,
       data() {
         return { cards };
       },
     });
-    console.log(wrapper.html());
 
     expect(wrapper.attributes('class')).toBe('card-view-wrapper');
   });
