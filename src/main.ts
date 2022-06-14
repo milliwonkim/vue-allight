@@ -1,20 +1,18 @@
-import Vue from 'vue';
-import compositionAPI from '@vue/composition-api';
-import resetCSS from 'reset-css';
-import App from './App.vue';
+import { createApp } from 'vue';
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core';
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+/* import specific icons */
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import router from './router';
-import vuetify from './plugins/vuetify';
+import App from './App.vue';
 
-Vue.config.productionTip = false;
+/* add icons to the library */
+library.add(faUserSecret);
 
-const libraries = [compositionAPI, resetCSS];
+const app = createApp(App);
 
-libraries.forEach((library) => {
-  Vue.use(library);
-});
-
-new Vue({
-  router,
-  vuetify,
-  render: (h) => h(App),
-}).$mount('#app');
+app.component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app');

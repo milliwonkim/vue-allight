@@ -1,3 +1,4 @@
+export const LOGO_BUTTON = 'logo';
 export const CONSULTING = 'consulting';
 export const NEW_FEEDS = 'new-feeds';
 export const DIARY = 'diary';

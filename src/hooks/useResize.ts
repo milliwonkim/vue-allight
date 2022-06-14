@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, Ref } from '@vue/composition-api';
+import { onMounted, onUnmounted, Ref } from 'vue';
 
 interface IRefs {
   clientWidth: number;

@@ -5,12 +5,14 @@
   </div>
 </template>
 <script lang="ts">
+import { defineComponent } from 'vue';
 import AHeader from './components/AHeader.vue';
+import './App.scss';
 
-export default {
+export default defineComponent({
   name: 'App',
   components: { 'a-header': AHeader },
-};
+});
 </script>
 
 <style lang="scss">

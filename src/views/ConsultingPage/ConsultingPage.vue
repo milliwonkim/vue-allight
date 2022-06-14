@@ -4,8 +4,8 @@
   </div>
 </template>
 <script lang="ts">
+import { onMounted, ref } from 'vue';
 import { URL_LISTS } from '@/constants/constants';
-import { onMounted, ref } from '@vue/composition-api';
 import ConsultingCardView from './ConsultingCardView.vue';
 import { IConsultingCard } from '../type';
 

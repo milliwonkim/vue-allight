@@ -1,7 +1,9 @@
 declare module '*.vue' {
-  import Vue from 'vue';
+  // NOTE: ts-loader
+  import { defineComponent } from 'vue';
 
-  export default Vue;
+  const component: ReturnType<typeof defineComponent>;
+  export default component;
 }
 
 declare module 'reset-css';

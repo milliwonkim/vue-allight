@@ -1,7 +1,7 @@
 <template>
   <card-view>
-    <div class="card-view-box">
-      <img class="card-view-image" :src="card.image" alt="card-view-image" />
+    <div class="card-view-box" @click="handleRoute" @keypress="handleRoute">
+      <teacher-image :dynamicShow="true" :imageUrl="card.image" />
       <div class="teacher-info-box">
         <p class="teacher-name-label">
           {{ card.name }} <span class="teacher-label">선생님</span>
@@ -16,24 +16,33 @@
           <p>{{ card.evaluationIndex }} / 10.0</p>
         </div>
       </div>
-      <v-icon @click="handleRoute">{{ icons.mdiChevronRight }}</v-icon>
+      <font-awesome-icon
+        class="teacher-route-button"
+        icon="fa-solid fa-chevron-right"
+      />
     </div>
   </card-view>
 </template>
 <script lang="ts">
+import { defineComponent, toRef } from 'vue';
 import CardView from '@/components/CardView.vue';
-import { defineComponent, onMounted, ref, toRef } from '@vue/composition-api';
-import { mdiChevronRight } from '@mdi/js';
-import router from '@/router';
+import { useRouter } from 'vue-router';
 import { CONSULTING } from '@/constants/urls';
+import TeacherImageVue from '@/components/TeacherImage.vue';
 
-const ICONS = { mdiChevronRight };
+// this is must have
+import { library } from '@fortawesome/fontawesome-svg-core';
+// import { name of your icon in camelCase } from "@fortawesome/free-solid-svg-icons";
+// For example, I want to use fa-enveloper-open-text, then it's faEnvelopeOpenText
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+// Then add it to library
+library.add(faChevronRight);
 
 export default defineComponent({
-  components: { 'card-view': CardView },
+  components: { 'card-view': CardView, 'teacher-image': TeacherImageVue },
   props: ['card'],
   setup(props) {
-    const icons = ref({ mdiChevronRight: '' });
+    const router = useRouter();
     const card = toRef(props, 'card');
     const cardId = Object.keys(card).length > 0 ? card.value.id : 0;
 
@@ -41,14 +50,7 @@ export default defineComponent({
       router.push(`/${CONSULTING}/teacher/${cardId}`);
     };
 
-    onMounted(() => {
-      icons.value = ICONS;
-    });
-
-    return {
-      icons,
-      handleRoute,
-    };
+    return { handleRoute };
   },
 });
 </script>
@@ -78,17 +80,6 @@ export default defineComponent({
   display: flex;
   gap: 16px;
   justify-content: space-between;
-}
-
-.card-view-image {
-  display: flex;
-  border-radius: 16px;
-  width: 128px;
-  height: 128px;
-
-  @media (max-width: 450px) {
-    display: none;
-  }
 }
 
 .teacher-info-box {
@@ -140,5 +131,10 @@ export default defineComponent({
   gap: 8px;
   justify-content: space-between;
   color: #7a7a7a;
+}
+
+.teacher-route-button {
+  display: inline-block;
+  margin: auto 0;
 }
 </style>

@@ -1,10 +1,14 @@
 <template>
   <header class="header" ref="refs">
-    <div class="logo-title-box">
+    <div
+      class="logo-title-box"
+      @click="handleRoute(LOGO_BUTTON)"
+      @keydown="handleRoute(LOGO_BUTTON)"
+    >
       <p class="logo-title">ALLIGHT</p>
     </div>
     <nav class="nav-list">
-      <v-app-bar-nav-icon v-if="show"></v-app-bar-nav-icon>
+      <font-awesome-icon v-if="show" icon="fa-solid fa-bars" />
       <a-button
         v-else
         :key="headerButton.id"
@@ -17,26 +21,38 @@
   </header>
 </template>
 
-<script>
-import { ref } from '@vue/composition-api';
-import router from '@/router';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
 import { HEADER_BUTTONS } from '@/constants/constants';
+import { CONSULTING, LOGO_BUTTON } from '@/constants/urls';
+import { useRouter } from 'vue-router';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import AButton from './AButton.vue';
 import useResize from '../hooks/useResize';
 
-export default {
+// this is must have
+library.add(faBars);
+
+export default defineComponent({
   name: 'a-header',
   components: { 'a-button': AButton },
   setup() {
+    const router = useRouter();
     const headerList = ref(HEADER_BUTTONS);
 
-    const refs = ref(null);
-    const show = ref(false);
+    const refs = ref<any>(null);
+    const show = ref<boolean>(false);
 
     useResize(refs, show);
     const handleRoute = (link) => {
       if (window.location.pathname !== link) {
-        router.push(link);
+        if (link) {
+          router.push(link);
+        }
+        if (link === LOGO_BUTTON) {
+          router.push(`/${CONSULTING}`);
+        }
       }
     };
 
@@ -45,9 +61,10 @@ export default {
       show,
       headerList,
       handleRoute,
+      LOGO_BUTTON,
     };
   },
-};
+});
 </script>
 <style lang="scss">
 .header {
