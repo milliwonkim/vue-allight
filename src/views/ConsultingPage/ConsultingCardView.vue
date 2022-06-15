@@ -1,6 +1,10 @@
 <template>
   <card-view>
-    <teacher-card :teacherInfo="card" @handleClick="handleRoute" />
+    <teacher-card
+      :isFixedWidth="false"
+      :teacherInfo="card"
+      @handleClick="handleRoute"
+    />
   </card-view>
 </template>
 <script lang="ts">

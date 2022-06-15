@@ -16,6 +16,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import 'aos/dist/aos.css';
 #app {
   max-width: 1600px;
   width: 80vw;

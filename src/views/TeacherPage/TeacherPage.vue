@@ -1,5 +1,5 @@
 <template>
-  <teacher-card :teacherInfo="teacherInfo" />
+  <teacher-card :isFixedWidth="true" :teacherInfo="teacherInfo" />
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
@@ -22,7 +22,7 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" module="classes">
+<style lang="scss" module>
 .teacherInfoBox {
   display: flex;
   flex-direction: row;

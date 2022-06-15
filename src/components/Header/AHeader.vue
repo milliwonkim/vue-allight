@@ -3,8 +3,8 @@
     <header class="header" ref="refs">
       <div
         class="logo-title-box"
-        @click="handleRoute(LOGO_BUTTON)"
-        @keydown="handleRoute(LOGO_BUTTON)"
+        @click="handleRoute(`/${CONSULTING}`)"
+        @keydown="handleRoute(`/${CONSULTING}`)"
       >
         <p class="logo-title">ALLIGHT</p>
       </div>
@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { HEADER_BUTTONS } from '@/constants/constants';
-import { LOGO_BUTTON } from '@/constants/urls';
+import { CONSULTING } from '@/constants/urls';
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from '@/constants/components';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -81,7 +81,7 @@ export default defineComponent({
       show,
       headerList,
       handleRoute,
-      LOGO_BUTTON,
+      CONSULTING,
       handleShowDrawer,
       isDrawerShow,
       handleCancelDrawer,

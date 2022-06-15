@@ -10,9 +10,6 @@ function useDrawer() {
       if (link) {
         router.push(link);
       }
-      if (link === LOGO_BUTTON) {
-        router.push(`/${CONSULTING}`);
-      }
     }
   };
 

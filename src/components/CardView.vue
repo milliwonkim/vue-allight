@@ -1,9 +1,9 @@
 <template>
-  <div class="card-container">
+  <div :class="$style.cardContainer">
     <slot />
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" module>
 .card-container {
   max-height: 160px;
   height: 100%;
@@ -15,7 +15,7 @@
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
-  @media (max-width: 890px) {
+  @media (max-width: 920px) {
     max-width: 400px;
     box-sizing: border-box;
   }

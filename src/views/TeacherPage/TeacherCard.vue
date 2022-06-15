@@ -1,18 +1,24 @@
 <template>
   <div
-    :class="classes.cardViewBox"
+    :class="[$style.cardViewBox, isFixedWidth ? $style.fixedWidth : '']"
     @click="handleClickCard"
     @keypress="handleClickCard"
   >
     <teacher-image :dynamicShow="true" :imageUrl="card.image" />
-    <div :class="classes.teacherInfoBox">
-      <p :class="classes.teacherNameLabel">
-        {{ card.name }} <span :class="classes.teacherLabel">선생님</span>
+    <div :class="$style.teacherInfoBox">
+      <p :class="$style.teacherNameLabel">
+        {{ card.name }} <span :class="$style.teacherLabel">선생님</span>
       </p>
       <p class="current-job-label">{{ card.currentJob }}</p>
-      <div class="section-box">
-        <p class="section-label">주요분야</p>
-        <p>{{ card.mainSection }}</p>
+      <div :class="$style.sectionBox">
+        <plain-text
+          :cssModuleProps="{ fontWeight: 'fontWeight500', color: 'colorRed' }"
+          >주요분야:
+        </plain-text>
+        <plain-text
+          :cssModuleProps="{ fontWeight: 'fontWeight700', color: 'colorBlue' }"
+          >{{ card.mainSection }}</plain-text
+        >
       </div>
       <div class="price-box">
         <p>{{ card.price }}</p>
@@ -20,7 +26,7 @@
       </div>
     </div>
     <font-awesome-icon
-      :class="classes.teacherRouteButton"
+      :class="$style.teacherRouteButton"
       icon="fa-solid fa-chevron-right"
     />
   </div>
@@ -28,6 +34,7 @@
 <script>
 import { defineComponent, toRefs } from 'vue';
 import TeacherImage from '@/components/TeacherImage.vue';
+import PlainText from '@/components/PlainText.vue';
 
 // this is must have
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -39,8 +46,8 @@ library.add(faChevronRight);
 
 export default defineComponent({
   name: 'teacher-card',
-  props: ['teacherInfo', 'handleClick'],
-  components: { 'teacher-image': TeacherImage },
+  props: ['teacherInfo', 'handleClick', 'isFixedWidth'],
+  components: { 'teacher-image': TeacherImage, 'plain-text': PlainText },
   setup(props, { emit }) {
     const card = toRefs(props).teacherInfo;
     function handleClickCard() {
@@ -51,11 +58,16 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" module="classes">
+<style lang="scss" module>
 .cardViewBox {
   display: flex;
   gap: 16px;
   justify-content: space-between;
+}
+
+.fixedWidth {
+  @extend .cardViewBox;
+  max-width: 400px;
 }
 
 .teacherInfoBox {
@@ -88,21 +100,12 @@ export default defineComponent({
   font-weight: 700;
 }
 
-.section-box {
+.sectionBox {
   display: flex;
   gap: 8px;
   align-items: center;
-  font-weight: 700;
+  font-weight: 600;
   color: #7a7a7a;
-}
-
-.section-label {
-  display: flex;
-  box-sizing: border-box;
-  padding: 8px;
-  color: #ffffff;
-  background: #000000;
-  border-radius: 8px;
 }
 
 .price-box {
