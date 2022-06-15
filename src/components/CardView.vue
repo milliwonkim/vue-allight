@@ -1,10 +1,23 @@
 <template>
-  <div :class="$style.cardContainer">
+  <div
+    :class="[
+      $style.cardContainer,
+      isFixedHeight ? '' : $style.noFixedHeight,
+      displayFlexDirectionColumn ? $style.displayFlexDirectionColumn : '',
+    ]"
+  >
     <slot />
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  props: ['isFixedHeight', 'displayFlexDirectionColumn'],
+});
+</script>
 <style lang="scss" module>
-.card-container {
+.cardContainer {
   max-height: 160px;
   height: 100%;
   width: 100%;
@@ -24,5 +37,15 @@
     min-width: 0;
     width: 100%;
   }
+}
+
+.noFixedHeight {
+  max-height: 100%;
+}
+
+.displayFlexDirectionColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 </style>

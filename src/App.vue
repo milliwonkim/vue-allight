@@ -17,6 +17,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import 'aos/dist/aos.css';
+@import 'v-calendar/dist/style.css';
 #app {
   max-width: 1600px;
   width: 80vw;

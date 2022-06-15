@@ -9,6 +9,26 @@ export const URLS = [
     mainSection: '학교폭력 상담',
     price: 3000,
     evaluationIndex: 9.0,
+    teacherReview: [
+      {
+        title: '타이틀 1',
+        description: '설명 1',
+      },
+      {
+        title: '타이틀 2',
+        description: '설명 2',
+      },
+      {
+        title: '타이틀 3',
+        description: '설명 3',
+      },
+    ],
+    teacherReservation: [
+      { dates: new Date(2022, 5, 3), highlight: true },
+      { dates: new Date(2022, 5, 6), highlight: true },
+      { dates: new Date(2022, 5, 21), highlight: true },
+    ],
+    teacherActivity: [],
   },
   {
     image:

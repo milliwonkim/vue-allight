@@ -1,5 +1,5 @@
 <template>
-  <card-view>
+  <card-view :isFixedHeight="true">
     <teacher-card
       :isFixedWidth="false"
       :teacherInfo="card"

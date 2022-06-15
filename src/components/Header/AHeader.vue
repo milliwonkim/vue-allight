@@ -127,6 +127,7 @@ export default defineComponent({
   @media (max-width: 890px) {
     display: flex;
     position: absolute;
+    z-index: 999;
     width: 100%;
     top: 0;
     left: 0;

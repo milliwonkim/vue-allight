@@ -16,14 +16,19 @@ function useGetCssModule({ cssModuleProps }: CssModuleProps) {
   const $style = useCssModule();
   const cssModuleObj = {};
 
-  const cssModules = Object.entries(cssModuleObject).reduce((obj, target) => {
-    const [key, val] = target;
-    if (!obj[key]) {
-      obj[key] = $style[val];
-    }
+  const cssModules =
+    Object.entries(cssModuleObject).length > 0
+      ? Object.entries(cssModuleObject).reduce((obj, target) => {
+        const [key, val] = target;
+        if (!obj[key]) {
+          obj[`${key}s`] = $style[val];
+        }
 
-    return obj;
-  }, cssModuleObj as ICssModule);
+        return obj;
+      }, cssModuleObj as ICssModule)
+      : {};
+
+  console.log('1111', cssModules);
 
   return { cssModules };
 }

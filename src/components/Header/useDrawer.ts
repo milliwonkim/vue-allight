@@ -1,4 +1,3 @@
-import { CONSULTING, LOGO_BUTTON } from '@/constants/urls';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 

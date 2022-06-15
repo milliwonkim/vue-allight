@@ -11,14 +11,12 @@
       </p>
       <p class="current-job-label">{{ card.currentJob }}</p>
       <div :class="$style.sectionBox">
-        <plain-text
-          :cssModuleProps="{ fontWeight: 'fontWeight500', color: 'colorRed' }"
+        <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }"
           >주요분야:
         </plain-text>
-        <plain-text
-          :cssModuleProps="{ fontWeight: 'fontWeight700', color: 'colorBlue' }"
-          >{{ card.mainSection }}</plain-text
-        >
+        <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">{{
+          card.mainSection
+        }}</plain-text>
       </div>
       <div class="price-box">
         <p>{{ card.price }}</p>

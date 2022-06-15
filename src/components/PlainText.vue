@@ -10,10 +10,20 @@ import useGetCssModule from '../hooks/useGetCssModule';
 export default defineComponent({
   props: ['cssModuleProps'],
   setup(props) {
-    const cssModuleProps = toRefs(props);
-    const { cssModules } = useGetCssModule(cssModuleProps);
-    const { fontWeight, color } = cssModules;
+    let fontWeight = '';
+    let color = '';
+    const cssModuleProp = toRefs(props);
 
+    if (
+      cssModuleProp.cssModuleProps.value &&
+      Object.keys(cssModuleProp.cssModuleProps.value).length > 0
+    ) {
+      const cssModules = useGetCssModule(cssModuleProp);
+      const { fontWeights, colors } = cssModules.cssModules;
+      fontWeight = fontWeights;
+      color = colors;
+    }
+    console.log(fontWeight, color);
     return { fontWeight, color };
   },
 });
@@ -39,6 +49,10 @@ export default defineComponent({
 
 .colorRed {
   color: red;
+}
+
+.color_7a7a7a {
+  color: #7a7a7a;
 }
 
 .colorBlue {

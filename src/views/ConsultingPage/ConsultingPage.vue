@@ -1,21 +1,25 @@
 <template>
-  <div class="card-view-wrapper">
+  <card-view-container>
     <consulting-card-view
       class="consulting-card-view-list"
       :key="card.id"
       v-for="card in cards"
       :card="card"
     />
-  </div>
+  </card-view-container>
 </template>
 <script lang="ts">
 import { onMounted, ref } from 'vue';
 import { URL_LISTS } from '@/constants/constants';
+import CardViewContainerVue from '@/components/CardViewContainer.vue';
 import ConsultingCardView from './ConsultingCardView.vue';
 import { IConsultingCard } from '../type';
 
 export default {
-  components: { 'consulting-card-view': ConsultingCardView },
+  components: {
+    'consulting-card-view': ConsultingCardView,
+    'card-view-container': CardViewContainerVue,
+  },
   setup() {
     const cards = ref<IConsultingCard[]>([]);
 
@@ -28,28 +32,6 @@ export default {
 };
 </script>
 <style lang="scss">
-.card-view-wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 16px;
-  box-sizing: border-box;
-  margin: 24px 0;
-
-  @media (max-width: 1760px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 1385px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 920px) {
-    grid-template-columns: repeat(1, 1fr);
-    margin: 24px 0;
-    justify-items: center;
-  }
-}
-
 .consulting-card-view-list {
   cursor: pointer;
 }

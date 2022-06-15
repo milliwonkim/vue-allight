@@ -17,8 +17,10 @@
     "@fortawesome/vue-fontawesome": "^3.0.0",
     "aos": "^2.3.4",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.3",
     "reset-css": "^5.0.1",
     "roboto-fontface": "*",
+    "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16",
     "webfontloader": "^1.0.0"
