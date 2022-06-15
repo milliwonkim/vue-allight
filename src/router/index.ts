@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: `/${CONSULTING}/teacher/:id`,
     name: TEACHER,
-    component: () => import('@/views/TeacherPage.vue'),
+    component: () => import('@/views/TeacherPage/TeacherPage.vue'),
   },
   {
     path: `/${NEW_FEEDS}`,

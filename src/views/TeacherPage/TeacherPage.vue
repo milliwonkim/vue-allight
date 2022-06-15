@@ -1,17 +1,14 @@
 <template>
-  <div :class="classes.teacherInfoBox">
-    <teacher-image :dynamicShow="false" :imageUrl="teacherInfo.image" />
-    <div>{{ teacherInfo.name }}</div>
-  </div>
+  <teacher-card :teacherInfo="teacherInfo" />
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import TeacherImageVue from '@/components/TeacherImage.vue';
 import { useRouter } from 'vue-router';
 import { URLS } from '@/constants/constants';
+import TeacherCardVue from './TeacherCard.vue';
 
 export default defineComponent({
-  components: { 'teacher-image': TeacherImageVue },
+  components: { 'teacher-card': TeacherCardVue },
   setup() {
     const teacherInfo = ref({ name: '', image: '' });
     const router = useRouter();

@@ -1,26 +1,6 @@
 <template>
   <card-view>
-    <div class="card-view-box" @click="handleRoute" @keypress="handleRoute">
-      <teacher-image :dynamicShow="true" :imageUrl="card.image" />
-      <div class="teacher-info-box">
-        <p class="teacher-name-label">
-          {{ card.name }} <span class="teacher-label">선생님</span>
-        </p>
-        <p class="current-job-label">{{ card.currentJob }}</p>
-        <div class="section-box">
-          <p class="section-label">주요분야</p>
-          <p>{{ card.mainSection }}</p>
-        </div>
-        <div class="price-box">
-          <p>{{ card.price }}</p>
-          <p>{{ card.evaluationIndex }} / 10.0</p>
-        </div>
-      </div>
-      <font-awesome-icon
-        class="teacher-route-button"
-        icon="fa-solid fa-chevron-right"
-      />
-    </div>
+    <teacher-card :teacherInfo="card" @handleClick="handleRoute" />
   </card-view>
 </template>
 <script lang="ts">
@@ -28,18 +8,13 @@ import { defineComponent, toRef } from 'vue';
 import CardView from '@/components/CardView.vue';
 import { useRouter } from 'vue-router';
 import { CONSULTING } from '@/constants/urls';
-import TeacherImageVue from '@/components/TeacherImage.vue';
-
-// this is must have
-import { library } from '@fortawesome/fontawesome-svg-core';
-// import { name of your icon in camelCase } from "@fortawesome/free-solid-svg-icons";
-// For example, I want to use fa-enveloper-open-text, then it's faEnvelopeOpenText
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-// Then add it to library
-library.add(faChevronRight);
+import TeacherCard from '@/views/TeacherPage/TeacherCard.vue';
 
 export default defineComponent({
-  components: { 'card-view': CardView, 'teacher-image': TeacherImageVue },
+  components: {
+    'card-view': CardView,
+    'teacher-card': TeacherCard,
+  },
   props: ['card'],
   setup(props) {
     const router = useRouter();
