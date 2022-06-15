@@ -1,0 +1,35 @@
+import { CONSULTING, LOGO_BUTTON } from '@/constants/urls';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+function useDrawer() {
+  const router = useRouter();
+  const isDrawerShow = ref(false);
+  const handleRoute = (link: string) => {
+    if (window.location.pathname !== link) {
+      if (link) {
+        router.push(link);
+      }
+      if (link === LOGO_BUTTON) {
+        router.push(`/${CONSULTING}`);
+      }
+    }
+  };
+
+  const handleShowDrawer = () => {
+    isDrawerShow.value = !isDrawerShow.value;
+  };
+
+  const handleCancelDrawer = () => {
+    isDrawerShow.value = false;
+  };
+
+  return {
+    isDrawerShow,
+    handleRoute,
+    handleShowDrawer,
+    handleCancelDrawer,
+  };
+}
+
+export default useDrawer;

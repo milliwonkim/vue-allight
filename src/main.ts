@@ -10,6 +10,8 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import router from './router';
 import App from './App.vue';
 
+import 'aos/dist/aos.css';
+
 /* add icons to the library */
 library.add(faUserSecret);
 

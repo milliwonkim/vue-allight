@@ -4,10 +4,10 @@ interface IRefs {
   clientWidth: number;
 }
 
-function useResize(refs: Ref<IRefs>, result: Ref<boolean>): void {
+function useResize(refs: Ref<IRefs | null>, result: Ref<boolean>): void {
   const handleWidth = () => {
     const refsObject = result;
-    if (refs.value.clientWidth < 640) {
+    if (!!refs.value && refs.value.clientWidth < 640) {
       refsObject.value = true;
     } else {
       refsObject.value = false;

@@ -55,27 +55,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.card-view-wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 16px;
-  box-sizing: border-box;
-  margin: 24px 0;
-
-  @media (max-width: 1760px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 1210px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 890px) {
-    grid-template-columns: repeat(1, 1fr);
-    margin: 24px 0;
-  }
-}
-
 .card-view-box {
   display: flex;
   gap: 16px;
@@ -87,6 +66,9 @@ export default defineComponent({
   flex-direction: column;
   justify-content: space-between;
   gap: 8px;
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 }
 
 .teacher-name-label {

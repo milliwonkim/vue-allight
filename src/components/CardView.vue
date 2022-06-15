@@ -15,6 +15,11 @@
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
+  @media (max-width: 890px) {
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+
   @media (max-width: 625px) {
     min-width: 0;
     width: 100%;

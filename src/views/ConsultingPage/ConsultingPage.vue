@@ -1,6 +1,11 @@
 <template>
   <div class="card-view-wrapper">
-    <consulting-card-view :key="card.id" v-for="card in cards" :card="card" />
+    <consulting-card-view
+      class="consulting-card-view-list"
+      :key="card.id"
+      v-for="card in cards"
+      :card="card"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -41,6 +46,11 @@ export default {
   @media (max-width: 890px) {
     grid-template-columns: repeat(1, 1fr);
     margin: 24px 0;
+    justify-items: center;
   }
+}
+
+.consulting-card-view-list {
+  cursor: pointer;
 }
 </style>

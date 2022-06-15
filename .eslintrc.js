@@ -12,6 +12,16 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'import/prefer-default-export': 'off',
     'object-curly-newline': ['error', { multiline: true }],
+    'operator-linebreak': [
+      1,
+      'after',
+      {
+        overrides: {
+          '?': 'ignore',
+          ':': 'ignore',
+        },
+      },
+    ],
   },
   overrides: [
     {
