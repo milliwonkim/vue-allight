@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import AOS from 'aos';
 import router from './router';
 import App from './App.vue';
 
@@ -16,5 +17,7 @@ import 'aos/dist/aos.css';
 library.add(faUserSecret);
 
 const app = createApp(App);
+
+AOS.init();
 
 app.component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app');

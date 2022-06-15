@@ -24,6 +24,7 @@
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.4",
     "@types/jest": "^27.0.1",
     "@types/webfontloader": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",

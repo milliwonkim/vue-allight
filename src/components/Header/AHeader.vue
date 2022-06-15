@@ -26,7 +26,7 @@
         </a-button>
       </nav>
     </header>
-    <div v-if="isDrawerShow" class="drawer-box">
+    <div v-if="isDrawerShow" class="drawer-box" data-aos="fade-left">
       <font-awesome-icon
         class="drawer-cancel-button"
         @click="handleCancelDrawer"
