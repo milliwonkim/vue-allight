@@ -111,6 +111,7 @@ export default defineComponent({
 .logo-title-box {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .logo-title {

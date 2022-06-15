@@ -1,5 +1,5 @@
 <template>
-  <div class="teacher-info-box">
+  <div :class="classes.teacherInfoBox">
     <teacher-image :dynamicShow="false" :imageUrl="teacherInfo.image" />
     <div>{{ teacherInfo.name }}</div>
   </div>
@@ -25,8 +25,9 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss">
-.teacher-info-box {
+<style lang="scss" module="classes">
+.teacherInfoBox {
   display: flex;
+  flex-direction: row;
 }
 </style>

@@ -54,7 +54,7 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss">
+<style lang="scss" module>
 .card-view-box {
   display: flex;
   gap: 16px;
