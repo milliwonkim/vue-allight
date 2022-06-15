@@ -1,6 +1,8 @@
 <template>
   <div>
-    <teacher-card :isFixedWidth="true" :teacherInfo="teacherInfo" />
+    <card-view-container>
+      <teacher-card :isFixedWidth="true" :teacherInfo="teacherInfo" />
+    </card-view-container>
     <card-view-container>
       <card-view
         :displayFlexDirectionColumn="true"
@@ -16,12 +18,28 @@
         >
           {{ section.name }}
         </plain-text>
+        <div :class="$style.reviewContainer" v-if="section.id === 1">
+          <div :class="$style.reviewOuterBox" :key="review.id" v-for="review in reviews">
+            <plain-text
+              :cssModuleProps="{
+                fontWeight: 'fontWeight700',
+                color: 'color_7a7a7a',
+              }"
+              >{{ review.username }}</plain-text
+            >
+            <div :class="$style.reviewBox">
+              <p>
+                {{ review.title }}
+              </p>
+            </div>
+          </div>
+        </div>
         <div v-if="section.id === 2">
           <v-date-picker
             v-model="reserveDay"
             :attributes="attributes()"
             :class="$style.vCalendarContainer"
-            @dayclick="onDayClick"
+            @dayclick="handleDayClick"
           />
         </div>
         <div v-if="section.id === 2">
@@ -32,11 +50,9 @@
                 color: 'color_7a7a7a',
               }"
             >
-              {{ currentDay }}
             </plain-text>
             <a-button @click="handleReservation">예약하기</a-button>
           </div>
-          <p v-else>예약 불가능</p>
         </div>
       </card-view>
     </card-view-container>
@@ -54,14 +70,24 @@ import dayjs from 'dayjs';
 import TeacherCardVue from './TeacherCard.vue';
 
 const TEACHER_SECTIONS = [
-  { name: '선생님 후기', id: 1 },
-  { name: '선생님 예약 일정', id: 2 },
-  { name: '선생님 활동', id: 3 },
+  {
+    name: '선생님 후기',
+    id: 1,
+  },
+  {
+    name: '선생님 예약 일정',
+    id: 2,
+  },
+  {
+    name: '선생님 활동',
+    id: 3,
+  },
 ];
 
 interface IReviews {
   title: string;
-  description: string;
+  id: number | string;
+  username: string;
 }
 
 interface IDays {
@@ -82,10 +108,15 @@ export default defineComponent({
     'a-button': AButton,
   },
   setup() {
-    const teacherInfo = ref({ name: '', image: '' });
+    const teacherInfo = ref({
+      name: '',
+      image: '',
+    });
     const reviews = ref<IReviews[]>([]);
     const days = ref<IDays[]>([]);
-    const reserveDay = ref<{ dates: Date }>({ dates: new Date() });
+    const reserveDay = ref<{ dates: Date }>({
+      dates: new Date(),
+    });
     const router = useRouter();
     const currentParams = +router.currentRoute.value.params.id;
     const isReservAvailable = ref(false);
@@ -95,36 +126,44 @@ export default defineComponent({
     function attributes() {
       const datesArray = days.value;
 
+      if (!(datesArray && datesArray.length > 0)) {
+        return [];
+      }
+
       return datesArray.map((d) => ({
         highlight: true,
         dates: d.dates,
       }));
     }
 
-    function onDayClick({ date }: DayClickProps) {
+    function handleDayClick({ date }: DayClickProps) {
       const isReserved =
-        toRaw(days.value).filter((day) => String(day.dates) === String(date))
-          .length > 0;
+        toRaw(days.value) && toRaw(days.value).length > 0
+          ? toRaw(days.value).filter((day) => String(day.dates) === String(date)).length > 0
+          : false;
       if (!isReserved) {
         isReservAvailable.value = true;
-        reserveDay.value = { dates: date };
+        reserveDay.value = {
+          dates: date,
+        };
       } else {
         isReservAvailable.value = false;
       }
     }
 
     function handleReservation() {
-      alert('예약이 완료되었습니다.');
+      // eslint-disable-next-line no-alert
+      alert(`${toRaw(currentDay.value)}로 예약이 완료되었습니다.`);
     }
 
     onMounted(() => {
-      currentDay.value = dayjs(toRaw(reserveDay.value).dates).format(
-        'YYYY-MM-DD',
-      );
+      currentDay.value = dayjs(toRaw(reserveDay.value).dates).format('YYYY-MM-DD');
       teacherInfo.value = URLS[currentParams];
       reviews.value = URLS[currentParams].teacherReview as IReviews[];
       days.value = URLS[currentParams].teacherReservation as IDays[];
-      onDayClick({ date: toRaw(reserveDay.value).dates });
+      handleDayClick({
+        date: toRaw(reserveDay.value).dates,
+      });
     });
 
     watch(
@@ -137,13 +176,14 @@ export default defineComponent({
     return {
       teacherInfo,
       TEACHER_SECTIONS,
-      onDayClick,
+      handleDayClick,
       attributes,
       days,
       reserveDay,
       isReservAvailable,
       currentDay,
       handleReservation,
+      reviews,
     };
   },
 });
@@ -163,5 +203,26 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.reviewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviewOuterBox {
+  display: flex;
+  gap: 8px;
+}
+
+.reviewBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reviewUsername {
+  display: flex;
 }
 </style>

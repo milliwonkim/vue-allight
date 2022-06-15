@@ -3,8 +3,8 @@
     <header class="header" ref="refs">
       <div
         class="logo-title-box"
-        @click="handleRoute(`/${CONSULTING}`)"
-        @keydown="handleRoute(`/${CONSULTING}`)"
+        @click="handleRoute(`/${CONSULTING}`, false)"
+        @keydown="handleRoute(`/${CONSULTING}`, false)"
       >
         <p class="logo-title">ALLIGHT</p>
       </div>
@@ -20,7 +20,7 @@
           v-else
           :key="headerButton.id"
           v-for="headerButton in headerList"
-          @clickHandler="handleRoute(headerButton.link)"
+          @clickHandler="handleRoute(headerButton.link, false)"
         >
           {{ headerButton.name }}
         </a-button>
@@ -37,7 +37,7 @@
           class="mobile-navigation-button"
           :key="headerButton.id"
           v-for="headerButton in headerList"
-          @clickHandler="handleRoute(headerButton.link)"
+          @clickHandler="handleRoute(headerButton.link, true)"
         >
           {{ headerButton.name }}
         </a-button>
@@ -65,7 +65,9 @@ ICONS.forEach((icon) => {
 
 export default defineComponent({
   name: A_HEADER_COMPONENT,
-  components: { [A_BUTTON_COMPONENT]: AButton },
+  components: {
+    [A_BUTTON_COMPONENT]: AButton,
+  },
   setup() {
     const headerList = ref(HEADER_BUTTONS);
 
@@ -73,8 +75,7 @@ export default defineComponent({
     const show = ref(false);
 
     useResize(refs, show);
-    const { isDrawerShow, handleRoute, handleShowDrawer, handleCancelDrawer } =
-      useDrawer();
+    const { isDrawerShow, handleRoute, handleShowDrawer, handleCancelDrawer } = useDrawer();
 
     return {
       refs,

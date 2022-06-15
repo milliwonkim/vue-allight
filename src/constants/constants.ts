@@ -1,5 +1,7 @@
 import { CONSULTING, DIARY, LOGIN, NEW_FEEDS, SIGN_UP } from './urls';
 
+export const STAR_NUMBER = 5;
+
 export const URLS = [
   {
     image:
@@ -11,22 +13,34 @@ export const URLS = [
     evaluationIndex: 9.0,
     teacherReview: [
       {
-        title: '타이틀 1',
-        description: '설명 1',
+        username: 'user3892',
+        title: '상담 완전 만족이었어요',
+        rate: 4 / STAR_NUMBER,
+        id: 1,
       },
       {
-        title: '타이틀 2',
-        description: '설명 2',
+        username: 'user9042',
+        title: '이제까지 했던 상담중에 제일 좋았습니다',
+        rate: 5 / STAR_NUMBER,
+        id: 2,
       },
       {
-        title: '타이틀 3',
-        description: '설명 3',
+        username: 'user4739',
+        title: '상담은 좋았지만, 서비스가 아쉬워요',
+        rate: 3 / STAR_NUMBER,
+        id: 3,
       },
     ],
     teacherReservation: [
-      { dates: new Date(2022, 5, 3), highlight: true },
-      { dates: new Date(2022, 5, 6), highlight: true },
-      { dates: new Date(2022, 5, 21), highlight: true },
+      {
+        dates: new Date(2022, 5, 3), highlight: true,
+      },
+      {
+        dates: new Date(2022, 5, 6), highlight: true,
+      },
+      {
+        dates: new Date(2022, 5, 21), highlight: true,
+      },
     ],
     teacherActivity: [],
   },
@@ -98,8 +112,14 @@ export const HEADER_BUTTONS = [
     name: '나의 일기장',
     link: `/${DIARY}`,
   },
-  { id: 4, name: '로그인', link: `/${LOGIN}` },
-  { id: 5, name: '회원가입', link: `/${SIGN_UP}` },
+  {
+    id: 4, name: '로그인', link: `/${LOGIN}`,
+  },
+  {
+    id: 5, name: '회원가입', link: `/${SIGN_UP}`,
+  },
 ];
 
-export default { URL_LISTS };
+export default {
+  URL_LISTS,
+};

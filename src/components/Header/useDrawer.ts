@@ -4,11 +4,15 @@ import { useRouter } from 'vue-router';
 function useDrawer() {
   const router = useRouter();
   const isDrawerShow = ref(false);
-  const handleRoute = (link: string) => {
+  const handleRoute = (link: string, isMobile: boolean) => {
     if (window.location.pathname !== link) {
       if (link) {
         router.push(link);
       }
+    }
+
+    if (isMobile) {
+      isDrawerShow.value = false;
     }
   };
 
