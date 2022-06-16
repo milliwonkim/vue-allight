@@ -18,8 +18,8 @@
         >
           {{ section.name }}
         </plain-text>
-        <div :class="$style.reviewContainer" v-if="section.name === REVIEW_KOR">
-          <div :class="$style.reviewOuterBox" :key="review.id" v-for="review in reviews">
+        <div class="review-container" v-if="section.name === REVIEW_KOR">
+          <div class="review-outer-box" :key="review.id" v-for="review in reviews">
             <plain-text
               :cssModuleProps="{
                 fontWeight: 'fontWeight700',
@@ -27,10 +27,10 @@
               }"
               >{{ review.username }}</plain-text
             >
-            <div :class="$style.reviewBox">
+            <div class="review-box">
               {{ review.title }}
             </div>
-            <div :class="$style.starBox">
+            <div class="star-box">
               <div :key="i" v-for="(r, i) in review.rate">
                 <font-awesome-icon v-if="r" icon="fa-solid fa-star" />
                 <font-awesome-icon v-else icon="fa-regular fa-star" />
@@ -39,10 +39,10 @@
           </div>
         </div>
         <div v-if="section.name === RESERVATION_CALENDAR_KOR">
-          <q-date v-model="days" minimal multiple :class="$style.calendarContainer" />
+          <q-date v-model="days" minimal multiple class="calendar-container" />
         </div>
         <div v-if="section.id === 2">
-          <div :class="$style.reservationBox" v-if="isReservAvailable">
+          <div class="reservation-box" v-if="isReservAvailable">
             <plain-text
               :cssModuleProps="{
                 fontWeight: 'fontWeight700',
@@ -182,37 +182,32 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" module>
-.teacherInfoBox {
-  display: flex;
-  flex-direction: row;
-}
-
-.calendarContainer {
+<style lang="scss" scoped>
+.calendar-container {
   border: none;
   box-shadow: none;
   width: 100%;
 }
 
-.reservationBox {
+.reservation-box {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.reviewContainer {
+.review-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.reviewOuterBox {
+.review-outer-box {
   display: flex;
   gap: 8px;
   justify-content: space-between;
 }
 
-.reviewBox {
+.review-box {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -220,11 +215,7 @@ export default defineComponent({
   width: 100%;
 }
 
-.reviewUsername {
-  display: flex;
-}
-
-.starBox {
+.star-box {
   display: flex;
   min-width: 90px;
 }
