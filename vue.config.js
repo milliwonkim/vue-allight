@@ -1,7 +1,9 @@
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
-  transpileDependencies: true,
+  transpileDependencies: [
+    'quasar',
+  ],
   productionSourceMap: false,
   configureWebpack: {
     mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
@@ -27,5 +29,10 @@ module.exports = defineConfig({
       ],
     },
   },
-  pluginOptions: {},
+  pluginOptions: {
+    quasar: {
+      importStrategy: 'kebab',
+      rtlSupport: false,
+    },
+  },
 });

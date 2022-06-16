@@ -7,7 +7,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AHeader from './components/Header/AHeader.vue';
-import './App.scss';
 
 export default defineComponent({
   name: 'App',
@@ -16,8 +15,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import './styles/quasar.scss';
 @import 'aos/dist/aos.css';
-@import 'v-calendar/dist/style.css';
+@import '@quasar/extras/material-icons/material-icons.css';
 #app {
   max-width: 1600px;
   width: 80vw;

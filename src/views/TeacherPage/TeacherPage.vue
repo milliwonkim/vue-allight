@@ -39,13 +39,7 @@
           </div>
         </div>
         <div v-if="section.name === RESERVATION_CALENDAR_KOR">
-          <v-date-picker
-            v-model="reserveDay"
-            :attributes="attributes"
-            :min-date="new Date()"
-            @dayclick="handleDayClick"
-            :class="$style.vCalendarContainer"
-          />
+          <q-date v-model="days" minimal multiple :class="$style.calendarContainer" />
         </div>
         <div v-if="section.id === 2">
           <div :class="$style.reservationBox" v-if="isReservAvailable">
@@ -78,12 +72,12 @@ import CardViewVue from '@/components/CardView.vue';
 import CardViewContainerVue from '@/components/CardViewContainer.vue';
 import PlainTextVue from '@/components/PlainText.vue';
 import AButton from '@/components/AButton.vue';
-import dayjs from 'dayjs';
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { CONSULTING } from '@/constants/urls';
 import TeacherCardVue from './TeacherCard.vue';
+import '@/views/TeacherCard.scss';
 
 const ICONS = [faRegularStar, faSolidStar];
 ICONS.forEach((icon) => {
@@ -97,22 +91,9 @@ interface IReviews {
   rate: boolean[];
 }
 
-interface IDays {
-  dates: Date;
-  highlight: string;
-}
-
 interface DayClickProps {
   date: Date;
 }
-
-interface IReserveDay {
-  dates: Date;
-  highlight: string;
-  id: string;
-}
-
-const readableDay = (unixDate: Date) => dayjs(unixDate).format('YYYY-MM-DD');
 
 export default defineComponent({
   components: {
@@ -128,12 +109,8 @@ export default defineComponent({
       image: '',
     });
     const reviews = ref<IReviews[]>([]);
-    const days = ref<IDays[]>([]);
-    const reserveDay = ref<IReserveDay>({
-      dates: new Date(),
-      highlight: 'red',
-      id: readableDay(new Date()),
-    });
+    const days = ref<string[]>([]);
+    const reserveDay = ref<Date>(new Date());
     const router = useRouter();
     const currentParams = +router.currentRoute.value.params.id;
     const isReservAvailable = ref(false);
@@ -142,28 +119,14 @@ export default defineComponent({
 
     const attributes = ref({});
 
-    function initAttribute() {
-      const datesArray = days.value;
-
-      if (!(datesArray && datesArray.length > 0)) {
-        return [];
-      }
-
-      return datesArray.map((d) => ({
-        id: readableDay(d.dates),
-        highlight: 'red',
-        dates: d.dates,
-      }));
-    }
-
     function handleDayClick({ date }: DayClickProps) {
       const isReserved =
         toRaw(days.value) && toRaw(days.value).length > 0
-          ? toRaw(days.value).filter((day) => String(day.dates) === String(date)).length > 0
+          ? toRaw(days.value).filter((day) => String(day) === String(date)).length > 0
           : false;
       if (!isReserved) {
         isReservAvailable.value = true;
-        reserveDay.value = { dates: date, highlight: 'blue', id: readableDay(date) };
+        reserveDay.value = date;
       } else {
         isReservAvailable.value = false;
       }
@@ -176,7 +139,6 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      currentDay.value = readableDay(toRaw(reserveDay.value).dates);
       teacherInfo.value = URLS[currentParams];
       reviews.value = URLS[currentParams].teacherReview.map((el) => {
         const { title, id, username, rate } = el;
@@ -192,18 +154,14 @@ export default defineComponent({
           }),
         };
       });
-      days.value = URLS[currentParams].teacherReservation as IDays[];
-      attributes.value = initAttribute();
+      days.value = URLS[currentParams].teacherReservation as string[];
 
-      handleDayClick({ date: toRaw(reserveDay.value).dates });
+      // handleDayClick();
     });
 
-    watch(
-      () => toRaw(reserveDay.value).dates,
-      (newVal) => {
-        currentDay.value = readableDay(newVal);
-      },
-    );
+    watch(days, (newVal) => {
+      console.log('newVal: ', toRaw(newVal));
+    });
 
     return {
       teacherInfo,
@@ -218,6 +176,7 @@ export default defineComponent({
       TEACHER_SECTIONS,
       RESERVATION_CALENDAR_KOR,
       RECORD_KOR,
+      date: ref('2022/06/03'),
       REVIEW_KOR,
     };
   },
@@ -229,8 +188,9 @@ export default defineComponent({
   flex-direction: row;
 }
 
-.vCalendarContainer {
-  border: 1px solid transparent;
+.calendarContainer {
+  border: none;
+  box-shadow: none;
   width: 100%;
 }
 

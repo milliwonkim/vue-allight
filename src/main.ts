@@ -8,9 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 /* import specific icons */
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
-import VCalendar from 'v-calendar';
+import { Quasar } from 'quasar';
 import router from './router';
 import App from './App.vue';
+import quasarUserOptions from './quasar-user-options';
+import '@/App.scss';
 
 /* add icons to the library */
 library.add(faUserSecret);
@@ -21,6 +23,6 @@ AOS.init();
 
 app
   .component('font-awesome-icon', FontAwesomeIcon)
+  .use(Quasar, quasarUserOptions)
   .use(router)
-  .use(VCalendar, {})
   .mount('#app');
