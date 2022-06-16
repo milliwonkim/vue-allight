@@ -28,8 +28,6 @@ function useGetCssModule({ cssModuleProps }: CssModuleProps) {
       }, cssModuleObj as ICssModule)
       : {};
 
-  console.log('1111', cssModules);
-
   return { cssModules };
 }
 

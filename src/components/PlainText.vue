@@ -23,7 +23,6 @@ export default defineComponent({
       fontWeight = fontWeights;
       color = colors;
     }
-    console.log(fontWeight, color);
     return { fontWeight, color };
   },
 });

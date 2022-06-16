@@ -18,7 +18,7 @@
         >
           {{ section.name }}
         </plain-text>
-        <div :class="$style.reviewContainer" v-if="section.id === 1">
+        <div :class="$style.reviewContainer" v-if="section.name === REVIEW_KOR">
           <div :class="$style.reviewOuterBox" :key="review.id" v-for="review in reviews">
             <plain-text
               :cssModuleProps="{
@@ -31,12 +31,14 @@
               {{ review.title }}
             </div>
             <div :class="$style.starBox">
-              <font-awesome-icon :key="star" v-for="star in stars" icon="fa-solid fa-star" />
-              <font-awesome-icon :key="star" v-for="star in stars" icon="fa-regular fa-star" />
+              <div :key="i" v-for="(r, i) in review.rate">
+                <font-awesome-icon v-if="r" icon="fa-solid fa-star" />
+                <font-awesome-icon v-else icon="fa-regular fa-star" />
+              </div>
             </div>
           </div>
         </div>
-        <div v-if="section.id === 2">
+        <div v-if="section.name === RESERVATION_CALENDAR_KOR">
           <v-date-picker
             v-model="reserveDay"
             :attributes="attributes()"
@@ -63,7 +65,14 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRaw, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { URLS, TEACHER_SECTIONS } from '@/constants/constants';
+import {
+  STAR_NUMBER,
+  URLS,
+  TEACHER_SECTIONS,
+  RESERVATION_CALENDAR_KOR,
+  RECORD_KOR,
+  REVIEW_KOR,
+} from '@/constants/constants';
 import CardViewVue from '@/components/CardView.vue';
 import CardViewContainerVue from '@/components/CardViewContainer.vue';
 import PlainTextVue from '@/components/PlainText.vue';
@@ -72,6 +81,7 @@ import dayjs from 'dayjs';
 import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { CONSULTING } from '@/constants/urls';
 import TeacherCardVue from './TeacherCard.vue';
 
 const ICONS = [faRegularStar, faSolidStar];
@@ -83,6 +93,7 @@ interface IReviews {
   title: string;
   id: number | string;
   username: string;
+  rate: boolean[];
 }
 
 interface IDays {
@@ -115,7 +126,6 @@ export default defineComponent({
     const isReservAvailable = ref(false);
 
     const currentDay = ref('');
-    const stars = ref<boolean[]>([]);
 
     function attributes() {
       const datesArray = days.value;
@@ -146,18 +156,30 @@ export default defineComponent({
     function handleReservation() {
       // eslint-disable-next-line no-alert
       alert(`${toRaw(currentDay.value)}로 예약이 완료되었습니다.`);
+      router.push(`/${CONSULTING}`);
     }
 
     onMounted(() => {
       currentDay.value = dayjs(toRaw(reserveDay.value).dates).format('YYYY-MM-DD');
       teacherInfo.value = URLS[currentParams];
-      reviews.value = URLS[currentParams].teacherReview as IReviews[];
-      days.value = URLS[currentParams].teacherReservation as IDays[];
+      reviews.value = URLS[currentParams].teacherReview.map((el) => {
+        const { title, id, username, rate } = el;
+        return {
+          title,
+          id,
+          username,
+          rate: new Array(STAR_NUMBER).fill(false).map((_, i) => {
+            if (i + 1 > rate) {
+              return false;
+            }
+            return true;
+          }),
+        };
+      });
+      days.value = URLS[currentParams].teacherReservation;
 
       handleDayClick({ date: toRaw(reserveDay.value).dates });
     });
-
-    console.log(stars.value);
 
     watch(
       () => toRaw(reserveDay.value).dates,
@@ -168,7 +190,6 @@ export default defineComponent({
 
     return {
       teacherInfo,
-      TEACHER_SECTIONS,
       handleDayClick,
       attributes,
       days,
@@ -177,7 +198,10 @@ export default defineComponent({
       currentDay,
       handleReservation,
       reviews,
-      stars,
+      TEACHER_SECTIONS,
+      RESERVATION_CALENDAR_KOR,
+      RECORD_KOR,
+      REVIEW_KOR,
     };
   },
 });
@@ -224,6 +248,7 @@ export default defineComponent({
 }
 
 .starBox {
+  display: flex;
   min-width: 90px;
 }
 </style>

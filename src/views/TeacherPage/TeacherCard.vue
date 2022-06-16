@@ -4,29 +4,26 @@
     @click="handleClickCard"
     @keypress="handleClickCard"
   >
-    <teacher-image :dynamicShow="true" :imageUrl="card.image" />
-    <div :class="$style.teacherInfoBox">
-      <p :class="$style.teacherNameLabel">
-        {{ card.name }} <span :class="$style.teacherLabel">선생님</span>
-      </p>
-      <p class="current-job-label">{{ card.currentJob }}</p>
-      <div :class="$style.sectionBox">
-        <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }"
-          >주요분야:
-        </plain-text>
-        <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">{{
-          card.mainSection
-        }}</plain-text>
-      </div>
-      <div class="price-box">
-        <p>{{ card.price }}</p>
-        <p>{{ card.evaluationIndex }} / 10.0</p>
+    <div :class="$style.teacherInfoContainer">
+      <teacher-image :dynamicShow="true" :imageUrl="card.image" />
+      <div :class="$style.teacherInfoBox">
+        <p :class="$style.teacherNameLabel">
+          {{ card.name }} <span :class="$style.teacherLabel">선생님</span>
+        </p>
+        <p class="current-job-label">{{ card.currentJob }}</p>
+        <div :class="$style.sectionBox">
+          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">주요분야: </plain-text>
+          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">{{
+            card.mainSection
+          }}</plain-text>
+        </div>
+        <div class="price-box">
+          <p>{{ card.price }}</p>
+          <p>{{ card.evaluationIndex }} / 10.0</p>
+        </div>
       </div>
     </div>
-    <font-awesome-icon
-      :class="$style.teacherRouteButton"
-      icon="fa-solid fa-chevron-right"
-    />
+    <font-awesome-icon :class="$style.teacherRouteButton" icon="fa-solid fa-chevron-right" />
   </div>
 </template>
 <script>
@@ -116,5 +113,11 @@ export default defineComponent({
 .teacherRouteButton {
   display: inline-block;
   margin: auto 0;
+}
+
+.teacherInfoContainer {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
 }
 </style>

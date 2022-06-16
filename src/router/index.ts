@@ -9,6 +9,7 @@ import {
 } from '../constants/urls';
 
 const routes: Array<RouteRecordRaw> = [
+  { path: '/', redirect: `/${CONSULTING}` },
   {
     path: `/${CONSULTING}`,
     name: CONSULTING,
@@ -38,6 +39,10 @@ const routes: Array<RouteRecordRaw> = [
     path: `/${SIGN_UP}`,
     name: SIGN_UP,
     component: () => import('@/views/SignUpPage.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: `/${CONSULTING}`,
   },
 ];
 
