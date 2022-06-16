@@ -28,9 +28,11 @@
               >{{ review.username }}</plain-text
             >
             <div :class="$style.reviewBox">
-              <p>
-                {{ review.title }}
-              </p>
+              {{ review.title }}
+            </div>
+            <div :class="$style.starBox">
+              <font-awesome-icon :key="star" v-for="star in stars" icon="fa-solid fa-star" />
+              <font-awesome-icon :key="star" v-for="star in stars" icon="fa-regular fa-star" />
             </div>
           </div>
         </div>
@@ -61,28 +63,21 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, toRaw, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { URLS } from '@/constants/constants';
+import { URLS, TEACHER_SECTIONS } from '@/constants/constants';
 import CardViewVue from '@/components/CardView.vue';
 import CardViewContainerVue from '@/components/CardViewContainer.vue';
 import PlainTextVue from '@/components/PlainText.vue';
 import AButton from '@/components/AButton.vue';
 import dayjs from 'dayjs';
+import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import TeacherCardVue from './TeacherCard.vue';
 
-const TEACHER_SECTIONS = [
-  {
-    name: '선생님 후기',
-    id: 1,
-  },
-  {
-    name: '선생님 예약 일정',
-    id: 2,
-  },
-  {
-    name: '선생님 활동',
-    id: 3,
-  },
-];
+const ICONS = [faRegularStar, faSolidStar];
+ICONS.forEach((icon) => {
+  library.add(icon);
+});
 
 interface IReviews {
   title: string;
@@ -114,14 +109,13 @@ export default defineComponent({
     });
     const reviews = ref<IReviews[]>([]);
     const days = ref<IDays[]>([]);
-    const reserveDay = ref<{ dates: Date }>({
-      dates: new Date(),
-    });
+    const reserveDay = ref<{ dates: Date }>({ dates: new Date() });
     const router = useRouter();
     const currentParams = +router.currentRoute.value.params.id;
     const isReservAvailable = ref(false);
 
     const currentDay = ref('');
+    const stars = ref<boolean[]>([]);
 
     function attributes() {
       const datesArray = days.value;
@@ -143,9 +137,7 @@ export default defineComponent({
           : false;
       if (!isReserved) {
         isReservAvailable.value = true;
-        reserveDay.value = {
-          dates: date,
-        };
+        reserveDay.value = { dates: date };
       } else {
         isReservAvailable.value = false;
       }
@@ -161,10 +153,11 @@ export default defineComponent({
       teacherInfo.value = URLS[currentParams];
       reviews.value = URLS[currentParams].teacherReview as IReviews[];
       days.value = URLS[currentParams].teacherReservation as IDays[];
-      handleDayClick({
-        date: toRaw(reserveDay.value).dates,
-      });
+
+      handleDayClick({ date: toRaw(reserveDay.value).dates });
     });
+
+    console.log(stars.value);
 
     watch(
       () => toRaw(reserveDay.value).dates,
@@ -184,6 +177,7 @@ export default defineComponent({
       currentDay,
       handleReservation,
       reviews,
+      stars,
     };
   },
 });
@@ -214,15 +208,22 @@ export default defineComponent({
 .reviewOuterBox {
   display: flex;
   gap: 8px;
+  justify-content: space-between;
 }
 
 .reviewBox {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  line-height: 120%;
+  width: 100%;
 }
 
 .reviewUsername {
   display: flex;
+}
+
+.starBox {
+  min-width: 90px;
 }
 </style>

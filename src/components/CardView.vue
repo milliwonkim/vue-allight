@@ -12,9 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-export default defineComponent({
-  props: ['isFixedHeight', 'displayFlexDirectionColumn'],
-});
+export default defineComponent({ props: ['isFixedHeight', 'displayFlexDirectionColumn'] });
 </script>
 <style lang="scss" module>
 .cardContainer {

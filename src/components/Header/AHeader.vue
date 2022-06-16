@@ -65,9 +65,7 @@ ICONS.forEach((icon) => {
 
 export default defineComponent({
   name: A_HEADER_COMPONENT,
-  components: {
-    [A_BUTTON_COMPONENT]: AButton,
-  },
+  components: { [A_BUTTON_COMPONENT]: AButton },
   setup() {
     const headerList = ref(HEADER_BUTTONS);
 
