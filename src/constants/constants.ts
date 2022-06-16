@@ -137,9 +137,9 @@ export const URLS = [
       },
     ],
     teacherReservation: [
-      { dates: new Date(2022, 5, 3), highlight: true },
-      { dates: new Date(2022, 5, 6), highlight: true },
-      { dates: new Date(2022, 5, 21), highlight: true },
+      { dates: new Date(2022, 5, 3), highlight: 'red' },
+      { dates: new Date(2022, 5, 6), highlight: 'red' },
+      { dates: new Date(2022, 5, 21), highlight: 'red' },
     ],
     teacherActivity: [],
   },

@@ -41,9 +41,10 @@
         <div v-if="section.name === RESERVATION_CALENDAR_KOR">
           <v-date-picker
             v-model="reserveDay"
-            :attributes="attributes()"
-            :class="$style.vCalendarContainer"
+            :attributes="attributes"
+            :min-date="new Date()"
             @dayclick="handleDayClick"
+            :class="$style.vCalendarContainer"
           />
         </div>
         <div v-if="section.id === 2">
@@ -98,12 +99,20 @@ interface IReviews {
 
 interface IDays {
   dates: Date;
-  highlight: boolean;
+  highlight: string;
 }
 
 interface DayClickProps {
   date: Date;
 }
+
+interface IReserveDay {
+  dates: Date;
+  highlight: string;
+  id: string;
+}
+
+const readableDay = (unixDate: Date) => dayjs(unixDate).format('YYYY-MM-DD');
 
 export default defineComponent({
   components: {
@@ -120,14 +129,20 @@ export default defineComponent({
     });
     const reviews = ref<IReviews[]>([]);
     const days = ref<IDays[]>([]);
-    const reserveDay = ref<{ dates: Date }>({ dates: new Date() });
+    const reserveDay = ref<IReserveDay>({
+      dates: new Date(),
+      highlight: 'red',
+      id: readableDay(new Date()),
+    });
     const router = useRouter();
     const currentParams = +router.currentRoute.value.params.id;
     const isReservAvailable = ref(false);
 
     const currentDay = ref('');
 
-    function attributes() {
+    const attributes = ref({});
+
+    function initAttribute() {
       const datesArray = days.value;
 
       if (!(datesArray && datesArray.length > 0)) {
@@ -135,7 +150,8 @@ export default defineComponent({
       }
 
       return datesArray.map((d) => ({
-        highlight: true,
+        id: readableDay(d.dates),
+        highlight: 'red',
         dates: d.dates,
       }));
     }
@@ -147,7 +163,7 @@ export default defineComponent({
           : false;
       if (!isReserved) {
         isReservAvailable.value = true;
-        reserveDay.value = { dates: date };
+        reserveDay.value = { dates: date, highlight: 'blue', id: readableDay(date) };
       } else {
         isReservAvailable.value = false;
       }
@@ -160,7 +176,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      currentDay.value = dayjs(toRaw(reserveDay.value).dates).format('YYYY-MM-DD');
+      currentDay.value = readableDay(toRaw(reserveDay.value).dates);
       teacherInfo.value = URLS[currentParams];
       reviews.value = URLS[currentParams].teacherReview.map((el) => {
         const { title, id, username, rate } = el;
@@ -176,7 +192,8 @@ export default defineComponent({
           }),
         };
       });
-      days.value = URLS[currentParams].teacherReservation;
+      days.value = URLS[currentParams].teacherReservation as IDays[];
+      attributes.value = initAttribute();
 
       handleDayClick({ date: toRaw(reserveDay.value).dates });
     });
@@ -184,7 +201,7 @@ export default defineComponent({
     watch(
       () => toRaw(reserveDay.value).dates,
       (newVal) => {
-        currentDay.value = dayjs(newVal).format('YYYY-MM-DD');
+        currentDay.value = readableDay(newVal);
       },
     );
 
