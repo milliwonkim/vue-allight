@@ -10,8 +10,12 @@
   </div>
 </template>
 <script lang="ts">
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ref, defineComponent } from "vue";
 import AButton from "@/components/AButton.vue";
+import { useRouter } from "vue-router";
+import { DIARY } from "@/constants/urls";
+import { useAuthStore } from "../store/auth";
 
 interface IUserInfo {
   id: string;
@@ -25,9 +29,26 @@ export default defineComponent({
       id: "",
       password: "",
     });
+    const authStore = useAuthStore();
+    const router = useRouter();
 
-    function handleSubmit() {
-      console.log(userInfo.value);
+    async function handleSubmit() {
+      const auth = getAuth();
+      signInWithEmailAndPassword(auth, userInfo.value.id, "tester")
+        .then((data) => {
+          const { user } = data;
+          console.log("user: ", user);
+          authStore.$patch({
+            auth: user,
+          });
+          router.push(`/${DIARY}`);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          console.log("errorCode, errorMessage", errorCode, errorMessage);
+        });
     }
 
     return {

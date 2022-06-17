@@ -7,3 +7,4 @@ declare module '*.vue' {
 }
 
 declare module 'reset-css';
+declare module 'firebase';
