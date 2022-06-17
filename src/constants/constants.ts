@@ -472,11 +472,11 @@ export const HEADER_BUTTONS = [
     name: '상담받기',
     link: `/${CONSULTING}`,
   },
-  {
-    id: 2,
-    name: '피드',
-    link: `/${NEW_FEEDS}`,
-  },
+  // {
+  //   id: 2,
+  //   name: '피드',
+  //   link: `/${NEW_FEEDS}`,
+  // },
   {
     id: 3,
     name: '나의 일기장',

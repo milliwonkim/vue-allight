@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div data-aos="fade-up">
     <card-view-container>
       <teacher-card :isFixedWidth="true" :teacherInfo="teacherInfo" />
     </card-view-container>
@@ -25,7 +25,7 @@
                 fontWeight: 'fontWeight700',
                 color: 'color_7a7a7a',
               }"
-              >{{ record.period.from }} ~ {{ record.period.to || '현재' }}</plain-text
+              >{{ record.period.from }} ~ {{ record.period.to || "현재" }}</plain-text
             >
             <div class="review-box" :key="content" v-for="content in record.contents">
               {{ content }}
@@ -53,7 +53,12 @@
           </div>
         </div>
         <div v-if="section.name === RESERVATION_CALENDAR_KOR">
-          <q-date v-model="reserveDay" :events="days" minimal class="calendar-container" />
+          <q-date
+            v-model="reserveDay"
+            :events="days"
+            minimal
+            class="calendar-container"
+          />
         </div>
         <div v-if="section.id === 2">
           <div class="reservation-box" v-if="isReservAvailable">
@@ -63,7 +68,7 @@
                 color: 'color_7a7a7a',
               }"
             >
-              {{ !!reserveDay ? `${reserveDay} (예약가능)` : '날짜를 선택해주세요.' }}
+              {{ !!reserveDay ? `${reserveDay} (예약가능)` : "날짜를 선택해주세요." }}
             </plain-text>
             <a-button @click="handleReservation">예약하기</a-button>
           </div>
@@ -83,8 +88,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRaw, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, onMounted, ref, toRaw, watch } from "vue";
+import { useRouter } from "vue-router";
 import {
   STAR_NUMBER,
   URLS,
@@ -92,18 +97,18 @@ import {
   RESERVATION_CALENDAR_KOR,
   RECORD_KOR,
   REVIEW_KOR,
-} from '@/constants/constants';
-import CardViewVue from '@/components/CardView.vue';
-import CardViewContainerVue from '@/components/CardViewContainer.vue';
-import PlainTextVue from '@/components/PlainText.vue';
-import AButton from '@/components/AButton.vue';
-import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { CONSULTING } from '@/constants/urls';
-import dayjs from 'dayjs';
-import TeacherCardVue from './TeacherCard.vue';
-import '@/views/TeacherCard.scss';
+} from "@/constants/constants";
+import CardViewVue from "@/components/CardView.vue";
+import CardViewContainerVue from "@/components/CardViewContainer.vue";
+import PlainTextVue from "@/components/PlainText.vue";
+import AButton from "@/components/AButton.vue";
+import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { CONSULTING } from "@/constants/urls";
+import dayjs from "dayjs";
+import TeacherCardVue from "./TeacherCard.vue";
+import "@/views/TeacherCard.scss";
 
 const ICONS = [faRegularStar, faSolidStar];
 ICONS.forEach((icon) => {
@@ -127,16 +132,16 @@ interface IRecords {
 
 export default defineComponent({
   components: {
-    'teacher-card': TeacherCardVue,
-    'card-view': CardViewVue,
-    'card-view-container': CardViewContainerVue,
-    'plain-text': PlainTextVue,
-    'a-button': AButton,
+    "teacher-card": TeacherCardVue,
+    "card-view": CardViewVue,
+    "card-view-container": CardViewContainerVue,
+    "plain-text": PlainTextVue,
+    "a-button": AButton,
   },
   setup() {
     const teacherInfo = ref({
-      name: '',
-      image: '',
+      name: "",
+      image: "",
     });
     const reviews = ref<IReviews[]>([]);
     const records = ref<IRecords[]>([]);
@@ -146,7 +151,7 @@ export default defineComponent({
     const currentParams = Number(router.currentRoute.value.params.id);
     const isReservAvailable = ref(false);
 
-    const currentDay = ref('');
+    const currentDay = ref("");
 
     const attributes = ref({});
 
@@ -198,7 +203,7 @@ export default defineComponent({
       days.value = URLS[currentParams].teacherReservation;
       records.value = URLS[currentParams].teacherRecords;
 
-      handleDayClick(dayjs(new Date()).format('YYYY/MM/DD'));
+      handleDayClick(dayjs(new Date()).format("YYYY/MM/DD"));
     });
 
     watch(reserveDay, (newReserveDay) => {

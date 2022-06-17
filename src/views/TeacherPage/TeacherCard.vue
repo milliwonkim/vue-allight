@@ -7,10 +7,14 @@
     <div class="teacher-info-container">
       <teacher-image :dynamicShow="true" :imageUrl="card.image" />
       <div class="teacher-info-box">
-        <p class="teacher-name-label">{{ card.name }} <span class="teacher-label">선생님</span></p>
+        <p class="teacher-name-label">
+          {{ card.name }} <span class="teacher-label">선생님</span>
+        </p>
         <p class="current-job-label">{{ card.currentJob }}</p>
         <div class="section-box">
-          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">주요분야: </plain-text>
+          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }"
+            >주요분야:
+          </plain-text>
           <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">{{
             card.mainSection
           }}</plain-text>
@@ -24,25 +28,25 @@
     <font-awesome-icon class="teacher-route-button" icon="fa-solid fa-chevron-right" />
   </div>
 </template>
-<script>
-import { defineComponent, toRefs } from 'vue';
-import TeacherImage from '@/components/TeacherImage.vue';
-import PlainText from '@/components/PlainText.vue';
+<script lang="ts">
+import { defineComponent, toRefs } from "vue";
+import TeacherImage from "@/components/TeacherImage.vue";
+import PlainText from "@/components/PlainText.vue";
 
 // this is must have
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faChevronRight);
 
 export default defineComponent({
-  name: 'teacher-card',
-  props: ['teacherInfo', 'handleClick', 'isFixedWidth'],
-  components: { 'teacher-image': TeacherImage, 'plain-text': PlainText },
+  name: "teacher-card",
+  props: ["teacherInfo", "handleClick", "isFixedWidth"],
+  components: { "teacher-image": TeacherImage, "plain-text": PlainText },
   setup(props, { emit }) {
     const card = toRefs(props).teacherInfo;
     function handleClickCard() {
-      emit('handleClick');
+      emit("handleClick");
     }
 
     return { handleClickCard, card };

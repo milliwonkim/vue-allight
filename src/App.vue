@@ -5,19 +5,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import AHeader from './components/Header/AHeader.vue';
+import { defineComponent } from "vue";
+import AHeader from "./components/Header/AHeader.vue";
 
 export default defineComponent({
-  name: 'App',
-  components: { 'a-header': AHeader },
+  name: "App",
+  components: { "a-header": AHeader },
 });
 </script>
 
 <style lang="scss">
-@import './styles/quasar.scss';
-@import 'aos/dist/aos.css';
-@import '@quasar/extras/material-icons/material-icons.css';
+@import "./styles/quasar.scss";
+@import "aos/dist/aos.css";
+@import "@quasar/extras/material-icons/material-icons.css";
 #app {
   max-width: 1600px;
   width: 80vw;
