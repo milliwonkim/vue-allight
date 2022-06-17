@@ -7,7 +7,7 @@
     <div class="teacher-info-container">
       <teacher-image :dynamicShow="true" :imageUrl="card.image" />
       <div class="teacher-info-box">
-        <p class="teacher-name-Label">{{ card.name }} <span class="teacher-label">선생님</span></p>
+        <p class="teacher-name-label">{{ card.name }} <span class="teacher-label">선생님</span></p>
         <p class="current-job-label">{{ card.currentJob }}</p>
         <div class="section-box">
           <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">주요분야: </plain-text>
