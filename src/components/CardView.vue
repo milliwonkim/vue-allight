@@ -25,7 +25,7 @@ export default defineComponent({
 
   padding: 16px;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: $default-border-radius;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
   @media (max-width: 920px) {

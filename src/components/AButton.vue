@@ -8,10 +8,10 @@
 
 <script>
 export default {
-  name: 'a-button',
+  name: "a-button",
   setup(_, context) {
     function handleClick() {
-      context.emit('clickHandler');
+      context.emit("clickHandler");
     }
 
     return { handleClick };
@@ -34,7 +34,7 @@ export default {
   &:active {
     background-color: #000000;
     color: #ffffff;
-    border-radius: 16px;
+    border-radius: $default-border-radius;
     cursor: pointer;
   }
 }

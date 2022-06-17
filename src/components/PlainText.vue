@@ -32,7 +32,7 @@ export default defineComponent({
 .label {
   display: flex;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: $small-border-radius;
 }
 
 .fontSize {

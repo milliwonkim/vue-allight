@@ -2,9 +2,7 @@
   <div>
     <img
       v-bind:class="[
-        dynamicShow
-          ? 'card-view-image-show-true'
-          : 'card-view-image-show-false',
+        dynamicShow ? 'card-view-image-show-true' : 'card-view-image-show-false',
       ]"
       :src="imageUrl"
       alt="card-view-image"
@@ -13,14 +11,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
-export default defineComponent({ props: ['imageUrl', 'dynamicShow'] });
+export default defineComponent({ props: ["imageUrl", "dynamicShow"] });
 </script>
 <style lang="scss">
 .card-view-image-show-true {
   display: flex;
-  border-radius: 16px;
+  border-radius: $default-border-radius;
   width: 128px;
   height: 128px;
 
@@ -31,7 +29,7 @@ export default defineComponent({ props: ['imageUrl', 'dynamicShow'] });
 
 .card-view-image-show-false {
   display: flex;
-  border-radius: 16px;
+  border-radius: $default-border-radius;
   width: 128px;
   height: 128px;
 }
