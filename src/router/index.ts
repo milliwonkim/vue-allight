@@ -1,5 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { CONSULTING, DIARY, NEW_FEEDS, TEACHER, LOGIN, SIGN_UP } from '../constants/urls';
+import {
+  CONSULTING,
+  DIARY,
+  NEW_FEEDS,
+  TEACHER,
+  LOGIN,
+  SIGN_UP,
+  DIARY_DETAIL,
+} from '../constants/urls';
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', redirect: `/${CONSULTING}` },
@@ -22,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     path: `/${DIARY}`,
     name: DIARY,
     component: () => import('@/views/DiaryPage/DiaryPage.vue'),
+  },
+  {
+    path: `/${DIARY_DETAIL}/:id`,
+    name: DIARY_DETAIL,
+    component: () => import('@/views/DiaryPage/DiaryDetailPage.vue'),
   },
   {
     path: `/${LOGIN}`,

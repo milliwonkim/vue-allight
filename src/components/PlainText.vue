@@ -1,12 +1,5 @@
 <template>
-  <p
-    :class="[
-      'label',
-      { fontWeightStyle: !!fontWeightStyle },
-      { colorStyle: !!colorStyle },
-      { fontSizeStyle: !!fontSizeStyle },
-    ]"
-  >
+  <p :class="['label', fontWeightStyle, colorStyle, fontSizeStyle]">
     <slot />
   </p>
 </template>
@@ -42,6 +35,20 @@ export default defineComponent({
   border-radius: 8px;
 }
 
+.fontSize {
+  &__large {
+    font-size: $large-font-size;
+  }
+
+  &__medium {
+    font-size: $medium-font-size;
+  }
+
+  &__small {
+    font-size: $small-font-size;
+  }
+}
+
 .fontWeight {
   &__500 {
     font-weight: 500;
@@ -57,7 +64,7 @@ export default defineComponent({
 }
 
 .color {
-  color: #424242;
+  color: $default-color;
 
   &__black {
     color: #000000;

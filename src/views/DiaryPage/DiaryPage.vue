@@ -1,26 +1,32 @@
 <template>
-  <div>
-    <card-view-container>
-      <card-view-box :key="diary.id" v-for="diary in diaries">
-        <div :class="['card-view-box', { 'fixed-width': isFixedWidth }]">
-          <div class="teacher-info-inner-container">
-            <div class="teacher-info-box">
-              <p class="teacher-name-label">
-                {{ diary.title }}
-              </p>
-              <div class="section-box">
-                <plain-text fontWeight="700">{{ diary.contents[0] }}</plain-text>
-              </div>
+  <card-view-container>
+    <card-view-box
+      @click="handleRoute(diary.id)"
+      class="card-view-box"
+      :key="diary.id"
+      v-for="diary in diaries"
+    >
+      <div :class="['card-view-box', { 'fixed-width': isFixedWidth }]">
+        <div class="teacher-info-inner-container">
+          <div class="teacher-info-box">
+            <p class="teacher-name-label">
+              {{ diary.title }}
+            </p>
+            <plain-text color="sub-default" fontSize="small">
+              {{ getDate(diary.date) }}
+            </plain-text>
+            <div class="section-box">
+              <plain-text fontWeight="700">{{ diary.contents[0] }}</plain-text>
             </div>
           </div>
-          <font-awesome-icon
-            class="teacher-route-button"
-            icon="fa-solid fa-chevron-right"
-          />
         </div>
-      </card-view-box>
-    </card-view-container>
-  </div>
+        <font-awesome-icon
+          class="teacher-route-button"
+          icon="fa-solid fa-chevron-right"
+        />
+      </div>
+    </card-view-box>
+  </card-view-container>
 </template>
 <script lang="ts">
 import CardViewContainerVue from "@/components/CardViewContainer.vue";
@@ -30,6 +36,9 @@ import CardViewBox from "@/components/CardViewBox.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import PlainTextVue from "@/components/PlainText.vue";
+import { useRouter } from "vue-router";
+import { DIARY_DETAIL } from "@/constants/urls";
+import { getDate } from "../../utils/getDate";
 
 library.add(faChevronRight);
 
@@ -49,13 +58,18 @@ export default defineComponent({
   },
   props: ["isFixedWidth"],
   setup() {
+    const router = useRouter();
     const diaries = ref<IDiaries[]>([]);
 
     onMounted(() => {
       diaries.value = DIARIES;
     });
 
-    return { diaries };
+    function handleRoute(id: number) {
+      router.push(`/${DIARY_DETAIL}/${id}`);
+    }
+
+    return { diaries, handleRoute, getDate };
   },
 });
 </script>
@@ -125,5 +139,15 @@ export default defineComponent({
   display: flex;
   gap: 16px;
   justify-content: flex-start;
+}
+
+.card-view-box {
+  cursor: pointer;
+}
+
+.card-view-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
