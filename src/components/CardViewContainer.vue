@@ -1,8 +1,8 @@
 <template>
-  <div :class="$style.teacherInfoContainer"><slot /></div>
+  <div class="teacher-info-container"><slot /></div>
 </template>
-<style lang="scss" module>
-.teacherInfoContainer {
+<style lang="scss" scoped>
+.teacher-info-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;

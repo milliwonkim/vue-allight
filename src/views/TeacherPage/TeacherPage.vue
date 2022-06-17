@@ -18,6 +18,20 @@
         >
           {{ section.name }}
         </plain-text>
+        <div class="review-container" v-if="section.name === RECORD_KOR">
+          <div class="review-outer-box" :key="record.id" v-for="record in records">
+            <plain-text
+              :cssModuleProps="{
+                fontWeight: 'fontWeight700',
+                color: 'color_7a7a7a',
+              }"
+              >{{ record.period.from }} ~ {{ record.period.to || '현재' }}</plain-text
+            >
+            <div class="review-box" :key="content" v-for="content in record.contents">
+              {{ content }}
+            </div>
+          </div>
+        </div>
         <div class="review-container" v-if="section.name === REVIEW_KOR">
           <div class="review-outer-box" :key="review.id" v-for="review in reviews">
             <plain-text
@@ -39,7 +53,7 @@
           </div>
         </div>
         <div v-if="section.name === RESERVATION_CALENDAR_KOR">
-          <q-date v-model="days" minimal multiple class="calendar-container" />
+          <q-date v-model="reserveDay" :events="days" minimal class="calendar-container" />
         </div>
         <div v-if="section.id === 2">
           <div class="reservation-box" v-if="isReservAvailable">
@@ -49,8 +63,19 @@
                 color: 'color_7a7a7a',
               }"
             >
+              {{ !!reserveDay ? `${reserveDay} (예약가능)` : '날짜를 선택해주세요.' }}
             </plain-text>
             <a-button @click="handleReservation">예약하기</a-button>
+          </div>
+          <div v-else>
+            <plain-text
+              :cssModuleProps="{
+                fontWeight: 'fontWeight700',
+                color: 'color_7a7a7a',
+              }"
+            >
+              예약 불가능
+            </plain-text>
           </div>
         </div>
       </card-view>
@@ -76,6 +101,7 @@ import { faStar as faRegularStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faSolidStar } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { CONSULTING } from '@/constants/urls';
+import dayjs from 'dayjs';
 import TeacherCardVue from './TeacherCard.vue';
 import '@/views/TeacherCard.scss';
 
@@ -91,8 +117,12 @@ interface IReviews {
   rate: boolean[];
 }
 
-interface DayClickProps {
-  date: Date;
+interface IRecords {
+  period: {
+    from: string;
+    to: string | null;
+  };
+  contents: string[];
 }
 
 export default defineComponent({
@@ -109,17 +139,18 @@ export default defineComponent({
       image: '',
     });
     const reviews = ref<IReviews[]>([]);
+    const records = ref<IRecords[]>([]);
     const days = ref<string[]>([]);
-    const reserveDay = ref<Date>(new Date());
+    const reserveDay = ref<Date | string>(new Date());
     const router = useRouter();
-    const currentParams = +router.currentRoute.value.params.id;
+    const currentParams = Number(router.currentRoute.value.params.id);
     const isReservAvailable = ref(false);
 
     const currentDay = ref('');
 
     const attributes = ref({});
 
-    function handleDayClick({ date }: DayClickProps) {
+    function handleDayClick(date: Date | string) {
       const isReserved =
         toRaw(days.value) && toRaw(days.value).length > 0
           ? toRaw(days.value).filter((day) => String(day) === String(date)).length > 0
@@ -132,10 +163,20 @@ export default defineComponent({
       }
     }
 
+    function eventsFn(date: string) {
+      if (!days.value.includes(date)) {
+        return false;
+      }
+
+      return true;
+    }
+
     function handleReservation() {
-      // eslint-disable-next-line no-alert
-      alert(`${toRaw(currentDay.value)}로 예약이 완료되었습니다.`);
-      router.push(`/${CONSULTING}`);
+      if (toRaw(reserveDay).value) {
+        // eslint-disable-next-line no-alert
+        alert(`${toRaw(reserveDay.value)}로 예약이 완료되었습니다.`);
+        router.push(`/${CONSULTING}`);
+      }
     }
 
     onMounted(() => {
@@ -154,18 +195,19 @@ export default defineComponent({
           }),
         };
       });
-      days.value = URLS[currentParams].teacherReservation as string[];
+      days.value = URLS[currentParams].teacherReservation;
+      records.value = URLS[currentParams].teacherRecords;
 
-      // handleDayClick();
+      handleDayClick(dayjs(new Date()).format('YYYY/MM/DD'));
     });
 
-    watch(days, (newVal) => {
-      console.log('newVal: ', toRaw(newVal));
+    watch(reserveDay, (newReserveDay) => {
+      handleDayClick(toRaw(newReserveDay));
     });
 
     return {
       teacherInfo,
-      handleDayClick,
+      eventsFn,
       attributes,
       days,
       reserveDay,
@@ -176,8 +218,8 @@ export default defineComponent({
       TEACHER_SECTIONS,
       RESERVATION_CALENDAR_KOR,
       RECORD_KOR,
-      date: ref('2022/06/03'),
       REVIEW_KOR,
+      records,
     };
   },
 });

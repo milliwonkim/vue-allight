@@ -23,6 +23,6 @@ describe('상담 페이지', () => {
       },
     });
 
-    expect(wrapper.attributes('class')).toBe('card-view-wrapper');
+    expect(wrapper.attributes('class')).toBe('teacher-info-container');
   });
 });

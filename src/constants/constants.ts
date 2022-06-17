@@ -36,7 +36,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
   {
     image:
@@ -71,7 +112,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
   {
     image:
@@ -106,7 +188,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
   {
     image:
@@ -141,7 +264,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
   {
     image:
@@ -176,7 +340,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
   {
     image:
@@ -211,7 +416,48 @@ export const URLS = [
       '2022/06/08',
       '2022/06/21',
     ],
-    teacherActivity: [],
+    teacherRecords: [
+      {
+        id: 1,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 2,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 3,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+      {
+        id: 4,
+        period: {
+          from: '2019/07/21',
+          to: null,
+        },
+        contents: [
+          '중앙대학교 사회복지학부 3학년 재학중',
+        ],
+      },
+    ],
   },
 ];
 
