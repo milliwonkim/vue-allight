@@ -1,5 +1,12 @@
 <template>
-  <p :class="['label', fontWeightStyle, colorStyle]">
+  <p
+    :class="[
+      'label',
+      { fontWeightStyle: !!fontWeightStyle },
+      { colorStyle: !!colorStyle },
+      { fontSizeStyle: !!fontSizeStyle },
+    ]"
+  >
     <slot />
   </p>
 </template>
@@ -8,21 +15,23 @@ import { defineComponent, toRefs } from "vue";
 
 const FONT_WEIGHT_CSS = "fontWeight";
 const COLOR_CSS = "color";
+const FONT_SIZE_CSS = "fontSize";
 
 export default defineComponent({
-  props: ["fontWeight", "color"],
+  props: ["fontWeight", "color", "fontSize"],
   setup(props) {
     const styleProps = toRefs(props);
+
     const getCss = (selector) => {
-      if (!styleProps[selector].value) return "";
+      if (!styleProps[selector]) return "";
       return `${selector}__${styleProps[selector].value}`;
     };
+
     const fontWeightStyle = getCss(FONT_WEIGHT_CSS);
     const colorStyle = getCss(COLOR_CSS);
+    const fontSizeStyle = getCss(FONT_SIZE_CSS);
 
-    console.log("colorStyle: ", colorStyle);
-
-    return { fontWeightStyle, colorStyle };
+    return { fontWeightStyle, colorStyle, fontSizeStyle };
   },
 });
 </script>
@@ -48,8 +57,14 @@ export default defineComponent({
 }
 
 .color {
-  &__7a7a7a {
-    color: #7a7a7a;
+  color: #424242;
+
+  &__black {
+    color: #000000;
+  }
+
+  &__sub-default {
+    color: $sub-default-color;
   }
 
   &__red {

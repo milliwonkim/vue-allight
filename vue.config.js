@@ -1,10 +1,13 @@
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
-  transpileDependencies: [
-    'quasar',
-  ],
+  transpileDependencies: ['quasar'],
   productionSourceMap: false,
+  css: {
+    loaderOptions: {
+      scss: { additionalData: `@import '@/_variables.scss';` },
+    },
+  },
   configureWebpack: {
     mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
     devtool: 'eval',

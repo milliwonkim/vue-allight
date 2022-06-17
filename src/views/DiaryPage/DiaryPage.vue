@@ -9,7 +9,7 @@
                 {{ diary.title }}
               </p>
               <div class="section-box">
-                <plain-text fontWeight="700">{{ diary.contents }}</plain-text>
+                <plain-text fontWeight="700">{{ diary.contents[0] }}</plain-text>
               </div>
             </div>
           </div>
@@ -27,12 +27,17 @@ import CardViewContainerVue from "@/components/CardViewContainer.vue";
 import { defineComponent, onMounted, ref } from "vue";
 import { DIARIES } from "@/constants/constants";
 import CardViewBox from "@/components/CardViewBox.vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import PlainTextVue from "@/components/PlainText.vue";
+
+library.add(faChevronRight);
 
 interface IDiaries {
   author: string;
   date: Date;
   title: string;
-  contents: string;
+  contents: string[];
   id: number;
 }
 
@@ -40,6 +45,7 @@ export default defineComponent({
   components: {
     "card-view-container": CardViewContainerVue,
     "card-view-box": CardViewBox,
+    "plain-text": PlainTextVue,
   },
   props: ["isFixedWidth"],
   setup() {
@@ -85,13 +91,13 @@ export default defineComponent({
 }
 
 .teacher-label {
-  color: #7a7a7a;
+  color: $sub-default-color;
   font-size: 16px;
   font-weight: 600;
 }
 
 .current-job-label {
-  color: #7a7a7a;
+  color: $sub-default-color;
   font-weight: 700;
 }
 
@@ -100,14 +106,14 @@ export default defineComponent({
   gap: 8px;
   align-items: center;
   font-weight: 600;
-  color: #7a7a7a;
+  color: $sub-default-color;
 }
 
 .price-box {
   display: flex;
   gap: 8px;
   justify-content: space-between;
-  color: #7a7a7a;
+  color: $sub-default-color;
 }
 
 .teacher-route-button {

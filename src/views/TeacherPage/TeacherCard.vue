@@ -12,7 +12,7 @@
         </p>
         <p class="current-job-label">{{ card.currentJob }}</p>
         <div class="section-box">
-          <plain-text fontWeight="700">주요분야: </plain-text>
+          <plain-text fontWeight="700" color="black">주요분야: </plain-text>
           <plain-text fontWeight="700">{{ card.mainSection }}</plain-text>
         </div>
         <div class="price-box">
@@ -81,13 +81,13 @@ export default defineComponent({
 }
 
 .teacher-label {
-  color: #7a7a7a;
+  color: $sub-default-color;
   font-size: 16px;
   font-weight: 600;
 }
 
 .current-job-label {
-  color: #7a7a7a;
+  color: $sub-default-color;
   font-weight: 700;
 }
 
@@ -96,14 +96,14 @@ export default defineComponent({
   gap: 8px;
   align-items: center;
   font-weight: 600;
-  color: #7a7a7a;
+  color: $sub-default-color;
 }
 
 .price-box {
   display: flex;
   gap: 8px;
   justify-content: space-between;
-  color: #7a7a7a;
+  color: $sub-default-color;
 }
 
 .teacher-route-button {
