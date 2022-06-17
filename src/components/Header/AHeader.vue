@@ -1,13 +1,14 @@
 <template>
   <div>
     <header class="header" ref="refs">
-      <div
+      <a-button @clickHandler="handleRoute(`/${CONSULTING}`, false)">
+        <p class="logo-title">ALLIGHT</p>
+      </a-button>
+      <!-- <div
         class="logo-title-box"
-        @click="handleRoute(`/${CONSULTING}`, false)"
         @keydown="handleRoute(`/${CONSULTING}`, false)"
       >
-        <p class="logo-title">ALLIGHT</p>
-      </div>
+      </div> -->
       <nav class="nav-list">
         <font-awesome-icon
           class="hamburger-button"

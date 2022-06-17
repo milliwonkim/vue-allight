@@ -1,4 +1,4 @@
-import { CONSULTING, DIARY, LOGIN, NEW_FEEDS, SIGN_UP } from './urls';
+import { CONSULTING, DIARY, LOGIN, SIGN_UP } from './urls';
 
 export const STAR_NUMBER = 5;
 
@@ -31,11 +31,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -43,9 +39,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -53,9 +47,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -63,9 +55,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -73,9 +63,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -107,11 +95,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -119,9 +103,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -129,9 +111,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -139,9 +119,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -149,9 +127,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -183,11 +159,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -195,9 +167,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -205,9 +175,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -215,9 +183,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -225,9 +191,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -259,11 +223,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -271,9 +231,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -281,9 +239,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -291,9 +247,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -301,9 +255,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -335,11 +287,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -347,9 +295,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -357,9 +303,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -367,9 +311,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -377,9 +319,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -411,11 +351,7 @@ export const URLS = [
         id: 3,
       },
     ],
-    teacherReservation: [
-      '2022/06/03',
-      '2022/06/08',
-      '2022/06/21',
-    ],
+    teacherReservation: ['2022/06/03', '2022/06/08', '2022/06/21'],
     teacherRecords: [
       {
         id: 1,
@@ -423,9 +359,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 2,
@@ -433,9 +367,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 3,
@@ -443,9 +375,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
       {
         id: 4,
@@ -453,9 +383,7 @@ export const URLS = [
           from: '2019/07/21',
           to: null,
         },
-        contents: [
-          '중앙대학교 사회복지학부 3학년 재학중',
-        ],
+        contents: ['중앙대학교 사회복지학부 3학년 재학중'],
       },
     ],
   },
@@ -502,5 +430,57 @@ export const TEACHER_SECTIONS = [
   {
     name: REVIEW_KOR,
     id: 3,
+  },
+];
+
+export const DIARIES = [
+  {
+    id: 1,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 2,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 3,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 4,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 5,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 6,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
+  },
+  {
+    id: 7,
+    author: '김기원',
+    date: new Date(),
+    title: '오늘 날씨는',
+    contents: '오늘은 날씨가 좋지 않았다.',
   },
 ];

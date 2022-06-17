@@ -1,60 +1,59 @@
 <template>
-  <p :class="[$style.label, fontWeight, color]">
+  <p :class="['label', fontWeightStyle, colorStyle]">
     <slot />
   </p>
 </template>
 <script>
-import { defineComponent, toRefs } from 'vue';
-import useGetCssModule from '../hooks/useGetCssModule';
+import { defineComponent, toRefs } from "vue";
+
+const FONT_WEIGHT_CSS = "fontWeight";
+const COLOR_CSS = "color";
 
 export default defineComponent({
-  props: ['cssModuleProps'],
+  props: ["fontWeight", "color"],
   setup(props) {
-    let fontWeight = '';
-    let color = '';
-    const cssModuleProp = toRefs(props);
+    const styleProps = toRefs(props);
+    const getCss = (selector) => {
+      if (!styleProps[selector].value) return "";
+      return `${selector}__${styleProps[selector].value}`;
+    };
+    const fontWeightStyle = getCss(FONT_WEIGHT_CSS);
+    const colorStyle = getCss(COLOR_CSS);
 
-    if (
-      cssModuleProp.cssModuleProps.value &&
-      Object.keys(cssModuleProp.cssModuleProps.value).length > 0
-    ) {
-      const cssModules = useGetCssModule(cssModuleProp);
-      const { fontWeights, colors } = cssModules.cssModules;
-      fontWeight = fontWeights;
-      color = colors;
-    }
-    return { fontWeight, color };
+    console.log("colorStyle: ", colorStyle);
+
+    return { fontWeightStyle, colorStyle };
   },
 });
 </script>
-<style lang="scss" module>
+<style lang="scss" scoped>
 .label {
   display: flex;
   box-sizing: border-box;
   border-radius: 8px;
 }
 
-.fontWeight500 {
-  font-weight: 500;
+.fontWeight {
+  &__500 {
+    font-weight: 500;
+  }
+
+  &__600 {
+    font-weight: 600;
+  }
+
+  &__700 {
+    font-weight: 700;
+  }
 }
 
-.fontWeight600 {
-  font-weight: 600;
-}
+.color {
+  &__7a7a7a {
+    color: #7a7a7a;
+  }
 
-.fontWeight700 {
-  font-weight: 700;
-}
-
-.colorRed {
-  color: red;
-}
-
-.color_7a7a7a {
-  color: #7a7a7a;
-}
-
-.colorBlue {
-  color: blue;
+  &__red {
+    color: red;
+  }
 }
 </style>

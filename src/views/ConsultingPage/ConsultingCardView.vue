@@ -1,25 +1,20 @@
 <template>
-  <div class="card-view-container" data-aos="fade-up">
-    <card-view :isFixedHeight="true">
-      <teacher-card
-        :isFixedWidth="false"
-        :teacherInfo="card"
-        @handleClick="handleRoute"
-      />
-    </card-view>
-  </div>
+  <card-view-box>
+    <teacher-card :isFixedWidth="false" :teacherInfo="card" @handleClick="handleRoute" />
+  </card-view-box>
 </template>
 <script lang="ts">
 import { defineComponent, toRef } from "vue";
-import CardView from "@/components/CardView.vue";
 import { useRouter } from "vue-router";
 import { CONSULTING } from "@/constants/urls";
 import TeacherCard from "@/views/TeacherPage/TeacherCard.vue";
+import CardViewBox from "@/components/CardViewBox.vue";
 
 export default defineComponent({
   components: {
-    "card-view": CardView,
+    "card-view-box": CardViewBox,
     "teacher-card": TeacherCard,
+    CardViewBox,
   },
   props: ["card"],
   setup(props) {
@@ -35,10 +30,4 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss">
-.card-view-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-</style>
+<style lang="scss"></style>

@@ -5,19 +5,15 @@
     @keypress="handleClickCard"
   >
     <div class="teacher-info-container">
-      <teacher-image :dynamicShow="true" :imageUrl="card.image" />
+      <teacher-image :dynamicShow="!!card.image" :imageUrl="card.image" />
       <div class="teacher-info-box">
         <p class="teacher-name-label">
           {{ card.name }} <span class="teacher-label">선생님</span>
         </p>
         <p class="current-job-label">{{ card.currentJob }}</p>
         <div class="section-box">
-          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }"
-            >주요분야:
-          </plain-text>
-          <plain-text :cssModuleProps="{ fontWeight: 'fontWeight700' }">{{
-            card.mainSection
-          }}</plain-text>
+          <plain-text fontWeight="700">주요분야: </plain-text>
+          <plain-text fontWeight="700">{{ card.mainSection }}</plain-text>
         </div>
         <div class="price-box">
           <p>{{ card.price }}</p>

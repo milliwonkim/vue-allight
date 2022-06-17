@@ -10,21 +10,12 @@
         v-bind:key="section.id"
         v-for="section in TEACHER_SECTIONS"
       >
-        <plain-text
-          :cssModuleProps="{
-            fontWeight: 'fontWeight700',
-            color: 'color_7a7a7a',
-          }"
-        >
+        <plain-text fontWeight="700" color="7a7a7a">
           {{ section.name }}
         </plain-text>
         <div class="review-container" v-if="section.name === RECORD_KOR">
           <div class="review-outer-box" :key="record.id" v-for="record in records">
-            <plain-text
-              :cssModuleProps="{
-                fontWeight: 'fontWeight700',
-                color: 'color_7a7a7a',
-              }"
+            <plain-text fontWeight="700" color="7a7a7a"
               >{{ record.period.from }} ~ {{ record.period.to || "현재" }}</plain-text
             >
             <div class="review-box" :key="content" v-for="content in record.contents">
@@ -34,13 +25,7 @@
         </div>
         <div class="review-container" v-if="section.name === REVIEW_KOR">
           <div class="review-outer-box" :key="review.id" v-for="review in reviews">
-            <plain-text
-              :cssModuleProps="{
-                fontWeight: 'fontWeight700',
-                color: 'color_7a7a7a',
-              }"
-              >{{ review.username }}</plain-text
-            >
+            <plain-text fontWeight="700" color="7a7a7a">{{ review.username }}</plain-text>
             <div class="review-box">
               {{ review.title }}
             </div>
@@ -62,25 +47,13 @@
         </div>
         <div v-if="section.id === 2">
           <div class="reservation-box" v-if="isReservAvailable">
-            <plain-text
-              :cssModuleProps="{
-                fontWeight: 'fontWeight700',
-                color: 'color_7a7a7a',
-              }"
-            >
+            <plain-text fontWeight="700" color="7a7a7a">
               {{ !!reserveDay ? `${reserveDay} (예약가능)` : "날짜를 선택해주세요." }}
             </plain-text>
             <a-button @click="handleReservation">예약하기</a-button>
           </div>
           <div v-else>
-            <plain-text
-              :cssModuleProps="{
-                fontWeight: 'fontWeight700',
-                color: 'color_7a7a7a',
-              }"
-            >
-              예약 불가능
-            </plain-text>
+            <plain-text fontWeight="700" color="7a7a7a"> 예약 불가능 </plain-text>
           </div>
         </div>
       </card-view>
