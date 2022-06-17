@@ -20,9 +20,9 @@
           v-else
           :key="headerButton.id"
           v-for="headerButton in headerList"
-          @clickHandler="handleRoute(headerButton.link, false)"
+          @clickHandler="getButtonHandler(headerButton, authUser)"
         >
-          {{ headerButton.name }}
+          {{ getButtonName(headerButton, authUser) }}
         </a-button>
       </nav>
     </header>
@@ -49,12 +49,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { HEADER_BUTTONS } from "@/constants/constants";
 import { CONSULTING } from "@/constants/urls";
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from "@/constants/components";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import useAuth from "@/hooks/useAuth";
 import AButton from "../AButton.vue";
 import useResize from "../../hooks/useResize";
 import useDrawer from "./useDrawer";
@@ -66,6 +67,26 @@ ICONS.forEach((icon) => {
   library.add(icon);
 });
 
+interface ButtonNameProps {
+  id: number;
+  name: string;
+  link: string;
+}
+
+interface AuthUserProps {
+  email: string;
+  uid: string;
+}
+
+function getButtonName(headerButton: ButtonNameProps, authUser: AuthUserProps) {
+  console.log("authUser: ", authUser);
+  if (Object.keys(authUser).length > 0) {
+    if (headerButton.name === "로그인") return authUser.email;
+    if (headerButton.name === "회원가입") return "로그아웃";
+  }
+  return headerButton.name;
+}
+
 export default defineComponent({
   name: A_HEADER_COMPONENT,
   components: { [A_BUTTON_COMPONENT]: AButton, "fade-box": FadeBoxVue },
@@ -76,12 +97,26 @@ export default defineComponent({
     const show = ref(false);
 
     useResize(refs, show);
+    const { authUser, handleLogout } = useAuth();
+
+    onMounted(() => {
+      console.log("authUser: ", authUser);
+    });
+
     const {
       isDrawerShow,
       handleRoute,
       handleShowDrawer,
       handleCancelDrawer,
     } = useDrawer();
+
+    function getButtonHandler(headerButton: ButtonNameProps, user: AuthUserProps) {
+      if (Object.keys(user).length > 0) {
+        if (headerButton.name === "로그인") return null;
+        if (headerButton.name === "회원가입") return handleLogout();
+      }
+      return handleRoute(headerButton.link, false);
+    }
 
     return {
       refs,
@@ -92,6 +127,9 @@ export default defineComponent({
       handleShowDrawer,
       isDrawerShow,
       handleCancelDrawer,
+      authUser,
+      getButtonName,
+      getButtonHandler,
     };
   },
 });

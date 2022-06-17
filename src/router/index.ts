@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   CONSULTING,
   DIARY,
@@ -24,16 +25,25 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: `/${NEW_FEEDS}`,
     name: NEW_FEEDS,
+    meta: {
+      requireAuth: true,
+    },
     component: () => import('@/views/NewFeedsPage.vue'),
   },
   {
     path: `/${DIARY}`,
     name: DIARY,
+    meta: {
+      requireAuth: true,
+    },
     component: () => import('@/views/DiaryPage/DiaryPage.vue'),
   },
   {
     path: `/${DIARY_DETAIL}/:id`,
     name: DIARY_DETAIL,
+    meta: {
+      requireAuth: true,
+    },
     component: () => import('@/views/DiaryPage/DiaryDetailPage.vue'),
   },
   {
@@ -55,6 +65,21 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const auth = getAuth();
+  if (to.meta.requireAuth) {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        next();
+      } else {
+        next('/consulting');
+      }
+    });
+  } else {
+    next();
+  }
 });
 
 export default router;

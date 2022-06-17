@@ -1,5 +1,5 @@
 <template>
-  <button @click="handleClick" class="default">
+  <button :type="type || 'button'" @click="handleClick" class="default">
     <div class="button-label-box">
       <slot />
     </div>
@@ -9,6 +9,7 @@
 <script>
 export default {
   name: "a-button",
+  props: ["type"],
   setup(_, context) {
     function handleClick() {
       context.emit("clickHandler");

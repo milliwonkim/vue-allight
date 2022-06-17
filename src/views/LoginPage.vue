@@ -1,25 +1,28 @@
 <template>
-  <div class="input-container">
-    <label class="input-label" for="id">
-      <input type="email" class="input" v-model="userInfo.id" id="id" />
-    </label>
-    <label class="input-label" for="password">
-      <input type="password" class="input" v-model="userInfo.password" id="password" />
-    </label>
-    <a-button @clickHandler="handleSubmit">로그인</a-button>
-  </div>
+  <form @submit.prevent="handleSubmit('general')">
+    <div class="input-container">
+      <label class="input-label" for="id">
+        <input type="email" class="input" v-model="userInfo.id" id="id" />
+      </label>
+      <label class="input-label" for="password">
+        <input type="password" class="input" v-model="userInfo.password" id="password" />
+      </label>
+      <a-button type="submit" @clickHandler="handleSubmit('general')">로그인</a-button>
+      <a-button type="submit" @clickHandler="handleSubmit('google')"
+        >구글 로그인</a-button
+      >
+    </div>
+  </form>
 </template>
 <script lang="ts">
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ref, defineComponent } from "vue";
 import AButton from "@/components/AButton.vue";
-import { useRouter } from "vue-router";
-import { DIARY } from "@/constants/urls";
-import { useAuthStore } from "../store/auth";
+
+import useAuth from "@/hooks/useAuth";
 
 interface IUserInfo {
   id: string;
-  password: string | null;
+  password: string;
 }
 
 export default defineComponent({
@@ -29,26 +32,11 @@ export default defineComponent({
       id: "",
       password: "",
     });
-    const authStore = useAuthStore();
-    const router = useRouter();
+    const { handleLogin, handleLoginWithGoogle } = useAuth();
 
-    async function handleSubmit() {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, userInfo.value.id, "tester")
-        .then((data) => {
-          const { user } = data;
-          console.log("user: ", user);
-          authStore.$patch({
-            auth: user,
-          });
-          router.push(`/${DIARY}`);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          console.log("errorCode, errorMessage", errorCode, errorMessage);
-        });
+    function handleSubmit(provd: string) {
+      if (provd === "general") handleLogin(userInfo);
+      if (provd === "google") handleLoginWithGoogle();
     }
 
     return {

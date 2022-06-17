@@ -30,7 +30,7 @@
 </template>
 <script lang="ts">
 import CardViewContainerVue from "@/components/CardViewContainer.vue";
-import { defineComponent, onMounted, ref, toRaw } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { DIARIES } from "@/constants/constants";
 import CardViewBox from "@/components/CardViewBox.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -38,7 +38,6 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import PlainTextVue from "@/components/PlainText.vue";
 import { useRouter } from "vue-router";
 import { DIARY_DETAIL } from "@/constants/urls";
-import { useAuthStore } from "@/store/auth";
 import { getDate } from "../../utils/getDate";
 
 library.add(faChevronRight);
@@ -61,10 +60,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const diaries = ref<IDiaries[]>([]);
-    const authStore = useAuthStore();
 
     onMounted(() => {
-      console.log(toRaw(authStore).auth);
       diaries.value = DIARIES;
     });
 

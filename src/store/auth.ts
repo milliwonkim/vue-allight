@@ -5,6 +5,6 @@ export const useAuthStore = defineStore('auth', {
     auth: {},
   }),
   getters: {
-    auth: (state) => state.auth,
+    getAuth: (state) => state.auth,
   },
 });
