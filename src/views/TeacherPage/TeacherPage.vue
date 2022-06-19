@@ -63,7 +63,16 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRaw, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  ref,
+  toRaw,
+  toRef,
+  toRefs,
+  watch,
+} from "vue";
 import { useRouter } from "vue-router";
 import {
   STAR_NUMBER,
@@ -78,6 +87,7 @@ import CardViewContainerVue from "@/components/CardViewContainer.vue";
 import PlainTextVue from "@/components/PlainText.vue";
 import AButton from "@/components/AButton.vue";
 import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
+import useAuth from "@/hooks/useAuth";
 import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { CONSULTING } from "@/constants/urls";
@@ -130,8 +140,10 @@ export default defineComponent({
     const currentDay = ref("");
 
     const attributes = ref({});
+    const { authUser } = useAuth();
 
     function handleDayClick(date: Date | string) {
+      console.log("ZZZZ", JSON.parse(JSON.stringify(authUser)));
       const isReserved =
         toRaw(days.value) && toRaw(days.value).length > 0
           ? toRaw(days.value).filter((day) => String(day) === String(date)).length > 0
@@ -182,7 +194,7 @@ export default defineComponent({
       handleDayClick(dayjs(new Date()).format("YYYY/MM/DD"));
     });
 
-    watch(reserveDay, (newReserveDay) => {
+    watch([reserveDay, authUser], ([newReserveDay]) => {
       handleDayClick(toRaw(newReserveDay));
     });
 

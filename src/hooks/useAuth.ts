@@ -1,4 +1,4 @@
-import { DIARY } from '@/constants/urls';
+import { CONSULTING, DIARY } from '@/constants/urls';
 import {
   getAuth,
   onAuthStateChanged,
@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
-import { Ref, ref, onMounted } from 'vue';
+import { Ref, ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../store/auth';
 
@@ -15,7 +15,7 @@ function useAuth() {
   const auth = getAuth();
   const router = useRouter();
   const authStore = useAuthStore();
-  const authUser = ref({});
+  const authUser = reactive({ email: '', uid: '' });
 
   async function isUserLoggedIn() {
     await onAuthStateChanged(auth, (user) => {
@@ -23,10 +23,9 @@ function useAuth() {
         authStore.$patch({
           auth: user,
         });
-        authUser.value = {
-          email: user.email as string,
-          uid: user.uid,
-        };
+        authUser.email = user.email as string;
+        authUser.uid = user.uid;
+        console.log({ ...new Proxy(authUser, {}) });
       } else {
         console.log('user not logged in');
       }
@@ -41,10 +40,11 @@ function useAuth() {
     )
       .then((data) => {
         const { user } = data;
-        console.log('user: ', user);
         authStore.$patch({
           auth: user,
         });
+        authUser.email = user.email as string;
+        authUser.uid = user.uid;
         router.push(`/${DIARY}`);
       })
       .catch((error) => {
@@ -61,6 +61,11 @@ function useAuth() {
       .then((result) => {
         const { user } = result;
         console.log('user: ', user);
+        authStore.$patch({
+          auth: user,
+        });
+        authUser.email = user.email as string;
+        authUser.uid = user.uid;
         router.push(`/${DIARY}`);
       })
       .catch((error) => {
@@ -74,12 +79,10 @@ function useAuth() {
 
   async function handleLogout() {
     await signOut(auth);
-    authUser.value = {};
+    router.push(`/${CONSULTING}`);
+    authUser.email = '';
+    authUser.uid = '';
   }
-
-  onMounted(() => {
-    isUserLoggedIn();
-  });
 
   return {
     isUserLoggedIn,

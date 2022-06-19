@@ -20,9 +20,9 @@
           v-else
           :key="headerButton.id"
           v-for="headerButton in headerList"
-          @clickHandler="getButtonHandler(headerButton, authUser)"
+          @clickHandler="getButtonHandler(headerButton)"
         >
-          {{ getButtonName(headerButton, authUser) }}
+          {{ getButtonName(headerButton) }}
         </a-button>
       </nav>
     </header>
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, toRefs, unref } from "vue";
 import { HEADER_BUTTONS } from "@/constants/constants";
 import { CONSULTING } from "@/constants/urls";
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from "@/constants/components";
@@ -78,15 +78,6 @@ interface AuthUserProps {
   uid: string;
 }
 
-function getButtonName(headerButton: ButtonNameProps, authUser: AuthUserProps) {
-  console.log("authUser: ", authUser);
-  if (Object.keys(authUser).length > 0) {
-    if (headerButton.name === "로그인") return authUser.email;
-    if (headerButton.name === "회원가입") return "로그아웃";
-  }
-  return headerButton.name;
-}
-
 export default defineComponent({
   name: A_HEADER_COMPONENT,
   components: { [A_BUTTON_COMPONENT]: AButton, "fade-box": FadeBoxVue },
@@ -97,11 +88,8 @@ export default defineComponent({
     const show = ref(false);
 
     useResize(refs, show);
-    const { authUser, handleLogout } = useAuth();
-
-    onMounted(() => {
-      console.log("authUser: ", authUser);
-    });
+    const { authUser, handleLogout, isUserLoggedIn } = useAuth();
+    const { email } = toRefs(authUser);
 
     const {
       isDrawerShow,
@@ -110,11 +98,26 @@ export default defineComponent({
       handleCancelDrawer,
     } = useDrawer();
 
-    function getButtonHandler(headerButton: ButtonNameProps, user: AuthUserProps) {
-      if (Object.keys(user).length > 0) {
+    onMounted(() => {
+      isUserLoggedIn();
+    });
+
+    function getButtonName(headerButton: ButtonNameProps) {
+      console.log("email: ", email.value);
+      if (email.value) {
+        if (headerButton.name === "로그인") return email.value;
+        if (headerButton.name === "회원가입") return "로그아웃";
+      }
+      return headerButton.name;
+    }
+
+    function getButtonHandler(headerButton: ButtonNameProps) {
+      if (email.value) {
+        console.log("email 1: ", email.value);
         if (headerButton.name === "로그인") return null;
         if (headerButton.name === "회원가입") return handleLogout();
       }
+      console.log("email 2: ", email.value);
       return handleRoute(headerButton.link, false);
     }
 
