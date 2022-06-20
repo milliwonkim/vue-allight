@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
-import { Ref, ref, reactive } from 'vue';
+import { Ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../store/auth';
 
@@ -56,11 +56,13 @@ function useAuth() {
   }
 
   async function handleLoginWithGoogle() {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider().setCustomParameters({
+      prompt: 'select_account',
+    });
     signInWithPopup(auth, provider)
       .then((result) => {
         const { user } = result;
-        console.log('user: ', user);
+
         authStore.$patch({
           auth: user,
         });

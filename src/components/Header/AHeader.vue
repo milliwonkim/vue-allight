@@ -73,11 +73,6 @@ interface ButtonNameProps {
   link: string;
 }
 
-interface AuthUserProps {
-  email: string;
-  uid: string;
-}
-
 export default defineComponent({
   name: A_HEADER_COMPONENT,
   components: { [A_BUTTON_COMPONENT]: AButton, "fade-box": FadeBoxVue },
