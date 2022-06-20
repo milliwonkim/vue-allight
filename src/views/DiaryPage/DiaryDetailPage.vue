@@ -43,10 +43,12 @@ export default defineComponent({
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          const newDocSnap: INewDoc[] = docSnap.data().diary.map((el: any) => ({
-            ...el,
-            date: el.date.toDate(),
-          }));
+          const newDocSnap: INewDoc[] = docSnap
+            .data()
+            .diary.map((el: { date: { toDate: () => Date } }) => ({
+              ...el,
+              date: el.date.toDate(),
+            }));
 
           console.log("newDocSnap: ", newDocSnap);
 
