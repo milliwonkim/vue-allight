@@ -6,3 +6,4 @@ export const DIARY_DETAIL = 'detail-diary';
 export const LOGIN = 'login';
 export const SIGN_UP = 'sign-up';
 export const TEACHER = 'teacher';
+export const WRITE_MY_DIARY = 'write_my_diary';

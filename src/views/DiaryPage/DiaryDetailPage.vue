@@ -7,24 +7,26 @@
       {{ getDate(diary.date) }}
     </plain-text>
     <div class="diary-detail-contents">
-      <plain-text
-        :key="content.id"
-        v-for="content in diary.contents"
-        fontWeight="500"
-        color="sub-default"
-        fontSize="medium"
-      >
-        {{ content }}
+      <plain-text fontWeight="500" color="sub-default" fontSize="medium">
+        {{ diary.contents }}
       </plain-text>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import PlainTextVue from "@/components/PlainText.vue";
-import { DIARIES } from "@/constants/constants";
 import { defineComponent, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/hooks/useFirestore";
 import { getDate } from "../../utils/getDate";
+
+interface INewDoc {
+  contents: string;
+  date: Date;
+  id: number;
+  title: string;
+}
 
 export default defineComponent({
   components: {
@@ -35,8 +37,31 @@ export default defineComponent({
     const router = useRouter();
     const currentParams = Number(router.currentRoute.value.params.id);
 
+    async function getDiary() {
+      try {
+        const docRef = doc(db, "my-diary", "diary-2");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const newDocSnap: INewDoc[] = docSnap.data().diary.map((el: any) => ({
+            ...el,
+            date: el.date.toDate(),
+          }));
+
+          console.log("newDocSnap: ", newDocSnap);
+
+          const [data] = newDocSnap.filter((el) => el.id === currentParams);
+          diary.value = data;
+        } else {
+          diary.value = { title: "", contents: "", date: new Date(), id: 9999 };
+        }
+      } catch (error) {
+        console.log("getDiaries error: ", error);
+      }
+    }
+
     onMounted(() => {
-      diary.value = DIARIES[currentParams];
+      getDiary();
     });
 
     return {

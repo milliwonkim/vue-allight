@@ -1,18 +1,16 @@
 <template>
-  <div class="input-container">
-    <label class="input-label" for="id">
-      <input type="email" class="input" v-model="userInfo.id" id="id" />
-    </label>
-    <label class="input-label" for="password">
-      <input type="password" class="input" v-model="userInfo.password" id="password" />
-    </label>
-    <a-button @clickHandler="handleSubmit">로그인</a-button>
-  </div>
+  <a-input-container>
+    <a-input :inputData="userInfo.id" id="id" />
+    <a-input :inputData="userInfo.password" id="password" />
+    <a-button @clickHandler="handleSubmit">회원가입</a-button>
+  </a-input-container>
 </template>
 <script lang="ts">
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, defineComponent } from "vue";
 import AButton from "@/components/AButton.vue";
+import AInputContainer from "@/components/AInputContainer.vue";
+import AInput from "@/components/AInput.vue";
 // eslint-disable-next-line import/no-unresolved
 
 interface IUserInfo {
@@ -21,7 +19,7 @@ interface IUserInfo {
 }
 
 export default defineComponent({
-  components: { "a-button": AButton },
+  components: { "a-button": AButton, AInputContainer, AInput },
   setup() {
     const userInfo = ref<IUserInfo>({
       id: "",

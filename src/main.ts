@@ -10,6 +10,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import { Quasar } from 'quasar';
 import { initializeApp } from 'firebase/app';
+
 import { createPinia } from 'pinia';
 import { getAnalytics } from 'firebase/analytics';
 import router from './router';

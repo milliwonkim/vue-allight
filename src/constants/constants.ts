@@ -2,7 +2,7 @@ import { CONSULTING, DIARY, LOGIN, SIGN_UP } from './urls';
 
 export const STAR_NUMBER = 5;
 
-export const URLS = [
+export const CONSULTING_TEACHERS = [
   {
     image:
       'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -389,7 +389,7 @@ export const URLS = [
   },
 ];
 
-export const URL_LISTS = URLS.map((el, i) => ({
+export const URL_LISTS = CONSULTING_TEACHERS.map((el, i) => ({
   ...el,
   id: i,
 }));

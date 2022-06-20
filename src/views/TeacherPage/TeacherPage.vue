@@ -63,20 +63,11 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-  toRaw,
-  toRef,
-  toRefs,
-  watch,
-} from "vue";
+import { defineComponent, onMounted, ref, toRaw, watch } from "vue";
 import { useRouter } from "vue-router";
 import {
   STAR_NUMBER,
-  URLS,
+  CONSULTING_TEACHERS,
   TEACHER_SECTIONS,
   RESERVATION_CALENDAR_KOR,
   RECORD_KOR,
@@ -90,8 +81,8 @@ import { faStar as faRegularStar } from "@fortawesome/free-regular-svg-icons";
 import useAuth from "@/hooks/useAuth";
 import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { CONSULTING } from "@/constants/urls";
 import dayjs from "dayjs";
+import { CONSULTING } from "@/constants/urls";
 import TeacherCardVue from "./TeacherCard.vue";
 import "@/views/TeacherCard.scss";
 
@@ -135,6 +126,7 @@ export default defineComponent({
     const reserveDay = ref<Date | string>(new Date());
     const router = useRouter();
     const currentParams = Number(router.currentRoute.value.params.id);
+    console.log("currentParams: ", currentParams);
     const isReservAvailable = ref(false);
 
     const currentDay = ref("");
@@ -173,8 +165,8 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      teacherInfo.value = URLS[currentParams];
-      reviews.value = URLS[currentParams].teacherReview.map((el) => {
+      teacherInfo.value = CONSULTING_TEACHERS[currentParams];
+      reviews.value = CONSULTING_TEACHERS[currentParams].teacherReview.map((el) => {
         const { title, id, username, rate } = el;
         return {
           title,
@@ -188,8 +180,8 @@ export default defineComponent({
           }),
         };
       });
-      days.value = URLS[currentParams].teacherReservation;
-      records.value = URLS[currentParams].teacherRecords;
+      days.value = CONSULTING_TEACHERS[currentParams].teacherReservation;
+      records.value = CONSULTING_TEACHERS[currentParams].teacherRecords;
 
       handleDayClick(dayjs(new Date()).format("YYYY/MM/DD"));
     });

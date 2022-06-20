@@ -1,4 +1,3 @@
-import { CONSULTING, DIARY } from '@/constants/urls';
 import {
   getAuth,
   onAuthStateChanged,
@@ -7,8 +6,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
-import { Ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
+import { CONSULTING, DIARY } from '@/constants/urls';
 import { useAuthStore } from '../store/auth';
 
 function useAuth() {
@@ -25,19 +25,15 @@ function useAuth() {
         });
         authUser.email = user.email as string;
         authUser.uid = user.uid;
-        console.log({ ...new Proxy(authUser, {}) });
       } else {
         console.log('user not logged in');
       }
     });
   }
 
-  async function handleLogin(userInfo: Ref<{ id: string; password: string }>) {
-    await signInWithEmailAndPassword(
-      auth,
-      userInfo.value.id,
-      userInfo.value.password,
-    )
+  async function handleLogin(userInfo: { id: string; password: string }) {
+    console.log('userInfo: ', userInfo);
+    await signInWithEmailAndPassword(auth, userInfo.id, userInfo.password)
       .then((data) => {
         const { user } = data;
         authStore.$patch({

@@ -49,13 +49,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRefs, unref } from "vue";
+import { defineComponent, onMounted, ref, toRefs } from "vue";
 import { HEADER_BUTTONS } from "@/constants/constants";
-import { CONSULTING } from "@/constants/urls";
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from "@/constants/components";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import useAuth from "@/hooks/useAuth";
+import { CONSULTING } from "@/constants/urls";
 import AButton from "../AButton.vue";
 import useResize from "../../hooks/useResize";
 import useDrawer from "./useDrawer";
@@ -98,7 +98,6 @@ export default defineComponent({
     });
 
     function getButtonName(headerButton: ButtonNameProps) {
-      console.log("email: ", email.value);
       if (email.value) {
         if (headerButton.name === "로그인") return email.value;
         if (headerButton.name === "회원가입") return "로그아웃";
@@ -108,11 +107,9 @@ export default defineComponent({
 
     function getButtonHandler(headerButton: ButtonNameProps) {
       if (email.value) {
-        console.log("email 1: ", email.value);
         if (headerButton.name === "로그인") return null;
         if (headerButton.name === "회원가입") return handleLogout();
       }
-      console.log("email 2: ", email.value);
       return handleRoute(headerButton.link, false);
     }
 

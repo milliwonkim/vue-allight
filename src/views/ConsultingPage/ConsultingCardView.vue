@@ -21,6 +21,7 @@ export default defineComponent({
     const router = useRouter();
     const card = toRef(props, "card");
     const cardId = Object.keys(card).length > 0 ? card.value.id : 0;
+    console.log("card: ", card);
 
     const handleRoute = () => {
       router.push(`/${CONSULTING}/teacher/${cardId}`);

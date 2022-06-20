@@ -1,24 +1,34 @@
 <template>
   <form @submit.prevent="handleSubmit('general')">
-    <div class="input-container">
-      <label class="input-label" for="id">
-        <input type="email" class="input" v-model="userInfo.id" id="id" />
-      </label>
-      <label class="input-label" for="password">
-        <input type="password" class="input" v-model="userInfo.password" id="password" />
-      </label>
+    <a-input-container>
+      <a-input
+        placeholder="이메일"
+        type="email"
+        :inputData="userInfo.id"
+        @handleInput="handleInput($event)"
+        id="id"
+      />
+      <a-input
+        placeholder="비밀번호"
+        type="password"
+        :inputData="userInfo.password"
+        @handleInput="handleInput($event)"
+        id="password"
+      />
       <a-button type="submit" @clickHandler="handleSubmit('general')">로그인</a-button>
       <a-button type="submit" @clickHandler="handleSubmit('google')"
         >구글 로그인</a-button
       >
-    </div>
+    </a-input-container>
   </form>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import AButton from "@/components/AButton.vue";
 
 import useAuth from "@/hooks/useAuth";
+import AInputContainerVue from "@/components/AInputContainer.vue";
+import AInput from "@/components/AInput.vue";
 
 interface IUserInfo {
   id: string;
@@ -26,9 +36,13 @@ interface IUserInfo {
 }
 
 export default defineComponent({
-  components: { "a-button": AButton },
+  components: {
+    "a-button": AButton,
+    "a-input-container": AInputContainerVue,
+    AInput,
+  },
   setup() {
-    const userInfo = ref<IUserInfo>({
+    const userInfo = reactive<IUserInfo>({
       id: "",
       password: "",
     });
@@ -39,9 +53,19 @@ export default defineComponent({
       if (provd === "google") handleLoginWithGoogle();
     }
 
+    function handleInput(event: { target: { id: string; value: string } }) {
+      console.log("value", event.target.id, event.target.value);
+      if (event.target.id === "id") {
+        userInfo.id = event.target.value;
+      } else {
+        userInfo.password = event.target.value;
+      }
+    }
+
     return {
       userInfo,
       handleSubmit,
+      handleInput,
     };
   },
 });

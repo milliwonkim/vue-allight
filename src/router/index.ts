@@ -8,6 +8,7 @@ import {
   LOGIN,
   SIGN_UP,
   DIARY_DETAIL,
+  WRITE_MY_DIARY,
 } from '../constants/urls';
 
 const routes: Array<RouteRecordRaw> = [
@@ -37,6 +38,14 @@ const routes: Array<RouteRecordRaw> = [
       requireAuth: true,
     },
     component: () => import('@/views/DiaryPage/DiaryPage.vue'),
+  },
+  {
+    path: `/${DIARY}/${WRITE_MY_DIARY}`,
+    name: WRITE_MY_DIARY,
+    meta: {
+      requireAuth: true,
+    },
+    component: () => import('@/views/DiaryPage/WriteDiaryPage.vue'),
   },
   {
     path: `/${DIARY_DETAIL}/:id`,
