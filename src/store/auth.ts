@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    auth: {},
-  }),
+  state: () => ({ email: '', uid: '' }),
   getters: {
-    getAuth: (state) => state.auth,
+    getAuth: (state) => state,
   },
 });

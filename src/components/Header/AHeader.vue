@@ -49,13 +49,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, toRefs } from "vue";
+import { defineComponent, onMounted, reactive, ref, toRefs, watch } from "vue";
 import { HEADER_BUTTONS } from "@/constants/constants";
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from "@/constants/components";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import useAuth from "@/hooks/useAuth";
 import { CONSULTING } from "@/constants/urls";
+import { useAuthStore } from "@/store/auth";
 import AButton from "../AButton.vue";
 import useResize from "../../hooks/useResize";
 import useDrawer from "./useDrawer";
@@ -83,7 +84,7 @@ export default defineComponent({
     const show = ref(false);
 
     useResize(refs, show);
-    const { authUser, handleLogout, isUserLoggedIn } = useAuth();
+    const { authUser, handleLogout } = useAuth();
     const { email } = toRefs(authUser);
 
     const {
@@ -92,10 +93,6 @@ export default defineComponent({
       handleShowDrawer,
       handleCancelDrawer,
     } = useDrawer();
-
-    onMounted(() => {
-      isUserLoggedIn();
-    });
 
     function getButtonName(headerButton: ButtonNameProps) {
       if (email.value) {

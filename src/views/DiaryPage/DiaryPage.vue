@@ -5,7 +5,7 @@
         @click="handleRoute(`/${DIARY_DETAIL}/${diary.id}`)"
         class="card-view-box"
         :key="diary.id"
-        v-for="diary in diaries"
+        v-for="diary in diarys"
       >
         <div :class="['card-view-box', { 'fixed-width': isFixedWidth }]">
           <div class="teacher-info-inner-container">
@@ -37,7 +37,7 @@
 </template>
 <script lang="ts">
 import CardViewContainerVue from "@/components/CardViewContainer.vue";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import CardViewBox from "@/components/CardViewBox.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -47,16 +47,17 @@ import { DIARY, DIARY_DETAIL, WRITE_MY_DIARY } from "@/constants/urls";
 import AButtonVue from "@/components/AButton.vue";
 import { db } from "@/hooks/useFirestore";
 import { doc, getDoc } from "firebase/firestore";
+import useAuth from "@/hooks/useAuth";
 import { getDate } from "../../utils/getDate";
+import { useDiariesStore } from "../../store/diaries";
 
 library.add(faChevronRight);
 
-interface IDiaries {
-  author: string;
-  date: Date;
+interface IDiary {
   title: string;
-  contents: string[];
   id: number;
+  date: Date;
+  contents: string;
 }
 
 export default defineComponent({
@@ -69,13 +70,14 @@ export default defineComponent({
   props: ["isFixedWidth"],
   setup() {
     const router = useRouter();
-    const diaries = ref<IDiaries[]>([]);
+    const diaries = useDiariesStore();
+    const { authUser } = useAuth();
+    const diarys = ref<IDiary[]>([]);
 
     async function getDiaries() {
       try {
-        const docRef = doc(db, "my-diary", "diary-2");
+        const docRef = doc(db, "my-diary", authUser.uid);
         const docSnap = await getDoc(docRef);
-
         if (docSnap.exists()) {
           const newDocSnap = docSnap
             .data()
@@ -83,17 +85,25 @@ export default defineComponent({
               ...el,
               date: el.date.toDate(),
             }));
-          diaries.value = newDocSnap;
+          console.log("docSnap", newDocSnap);
+          diaries.$patch({ diaries: newDocSnap });
         } else {
-          diaries.value = [];
+          diaries.$patch({ diaries: [] });
         }
       } catch (error) {
         console.log("getDiaries error: ", error);
       }
     }
 
-    onMounted(() => {
-      getDiaries();
+    watch(authUser, (newVal) => {
+      if (newVal.email) {
+        getDiaries();
+      }
+    });
+
+    watch(diaries, (newVal) => {
+      // diarys.value = destructProxyObj(newVal.$state).diaries;
+      diarys.value = newVal.diaries;
     });
 
     function handleRoute(link: string) {
@@ -102,6 +112,7 @@ export default defineComponent({
 
     return {
       diaries,
+      diarys,
       handleRoute,
       getDate,
       DIARY_DETAIL,

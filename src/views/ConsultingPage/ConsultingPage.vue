@@ -40,8 +40,6 @@ export default {
       }
     }
 
-    console.log("cards: ", cards);
-
     onMounted(() => {
       getTeachers();
     });

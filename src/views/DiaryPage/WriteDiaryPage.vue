@@ -31,8 +31,6 @@ import AInputContainerVue from "@/components/AInputContainer.vue";
 import useFirestore from "@/hooks/useFirestore";
 import { defineComponent, ref } from "vue";
 import AButton from "@/components/AButton.vue";
-import { useRouter } from "vue-router";
-import { DIARY } from "@/constants/urls";
 
 export default defineComponent({
   components: {
@@ -41,7 +39,6 @@ export default defineComponent({
     "a-button": AButton,
   },
   setup() {
-    const router = useRouter();
     const title = ref("");
     const contents = ref("");
     const { postMyDiary } = useFirestore();
@@ -56,7 +53,6 @@ export default defineComponent({
 
     function handleWriteDiary(titleString: string, contentsString: string) {
       postMyDiary(titleString, contentsString);
-      router.push(`/${DIARY}`);
     }
 
     return {

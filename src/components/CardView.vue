@@ -18,6 +18,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .card-container {
+  margin: 0 auto;
   max-height: 160px;
   height: 100%;
   width: 100%;

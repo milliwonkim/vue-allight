@@ -15,10 +15,11 @@
 </template>
 <script lang="ts">
 import PlainTextVue from "@/components/PlainText.vue";
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/hooks/useFirestore";
+import useAuth from "@/hooks/useAuth";
 import { getDate } from "../../utils/getDate";
 
 interface INewDoc {
@@ -33,14 +34,17 @@ export default defineComponent({
     "plain-text": PlainTextVue,
   },
   setup() {
-    const diary = ref({});
+    const diary = ref({ contents: "", date: new Date(), id: 0, title: "" });
     const router = useRouter();
     const currentParams = Number(router.currentRoute.value.params.id);
+    const { authUser } = useAuth();
 
     async function getDiary() {
       try {
-        const docRef = doc(db, "my-diary", "diary-2");
+        const docRef = doc(db, "my-diary", authUser.uid);
         const docSnap = await getDoc(docRef);
+
+        console.log(docSnap.data());
 
         if (docSnap.exists()) {
           const newDocSnap: INewDoc[] = docSnap
@@ -62,8 +66,10 @@ export default defineComponent({
       }
     }
 
-    onMounted(() => {
-      getDiary();
+    watch(authUser, () => {
+      if (authUser.email) {
+        getDiary();
+      }
     });
 
     return {
