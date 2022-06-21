@@ -2,12 +2,9 @@ import { defineStore } from 'pinia';
 
 export const useDiariesStore = defineStore('useDiariesStore', {
   state: () => ({
-    diaries: [],
+    diaries: [{ id: 0, title: '', contents: '', date: new Date() }],
   }),
   getters: {
-    getDiaries: (state) => {
-      console.log('state.diaries: ', state.diaries);
-      return state.diaries;
-    },
+    getDiaries: (state) => state.diaries,
   },
 });

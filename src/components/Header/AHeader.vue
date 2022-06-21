@@ -49,14 +49,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, toRefs, watch } from "vue";
+import { defineComponent, ref, toRefs } from "vue";
 import { HEADER_BUTTONS } from "@/constants/constants";
 import { A_HEADER_COMPONENT, A_BUTTON_COMPONENT } from "@/constants/components";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import useAuth from "@/hooks/useAuth";
 import { CONSULTING } from "@/constants/urls";
-import { useAuthStore } from "@/store/auth";
 import AButton from "../AButton.vue";
 import useResize from "../../hooks/useResize";
 import useDrawer from "./useDrawer";

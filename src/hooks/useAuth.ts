@@ -22,7 +22,7 @@ function useAuth() {
       if (user) {
         const { email, uid } = user;
         authStore.$patch({
-          email: email as any,
+          email: email as string,
           uid,
         });
         authUser.email = email as string;
@@ -40,7 +40,7 @@ function useAuth() {
         const { user } = data;
         const { email, uid } = user;
         authStore.$patch({
-          email: email as any,
+          email: email as string,
           uid,
         });
         authUser.email = user.email as string;
@@ -64,7 +64,7 @@ function useAuth() {
         const { user } = result;
         const { email, uid } = user;
         authStore.$patch({
-          email: email as any,
+          email: email as string,
           uid,
         });
         console.log('user: ', user);

@@ -1,38 +1,41 @@
 <template>
   <div>
-    <card-view-container>
-      <card-view-box
-        @click="handleRoute(`/${DIARY_DETAIL}/${diary.id}`)"
-        class="card-view-box"
-        :key="diary.id"
-        v-for="diary in diarys"
-      >
-        <div :class="['card-view-box', { 'fixed-width': isFixedWidth }]">
-          <div class="teacher-info-inner-container">
-            <div class="teacher-info-box">
-              <p class="teacher-name-label">
-                {{ diary.title }}
-              </p>
-              <plain-text color="sub-default" fontSize="small">
-                {{ getDate(diary.date) }}
-              </plain-text>
-              <div class="section-box">
-                <plain-text fontWeight="700">{{ diary.contents }}</plain-text>
+    <div v-if="!isLoading">
+      <card-view-container>
+        <card-view-box
+          @click="handleRoute(`/${DIARY_DETAIL}/${diary.id}`)"
+          class="card-view-box"
+          :key="diary.id"
+          v-for="diary in diaries.diaries"
+        >
+          <div :class="['card-view-box', { 'fixed-width': isFixedWidth }]">
+            <div class="teacher-info-inner-container">
+              <div class="teacher-info-box">
+                <p class="teacher-name-label">
+                  {{ diary.title }}
+                </p>
+                <plain-text color="sub-default" fontSize="small">
+                  {{ getDate(diary.date) }}
+                </plain-text>
+                <div class="section-box">
+                  <plain-text fontWeight="700">{{ diary.contents }}</plain-text>
+                </div>
               </div>
             </div>
+            <font-awesome-icon
+              class="teacher-route-button"
+              icon="fa-solid fa-chevron-right"
+            />
           </div>
-          <font-awesome-icon
-            class="teacher-route-button"
-            icon="fa-solid fa-chevron-right"
-          />
-        </div>
-      </card-view-box>
-    </card-view-container>
-    <div class="write-diary-wrapper">
-      <a-button @clickHandler="handleRoute(`/${DIARY}/${WRITE_MY_DIARY}`)"
-        >일기쓰기</a-button
-      >
+        </card-view-box>
+      </card-view-container>
+      <div class="write-diary-wrapper">
+        <a-button @clickHandler="handleRoute(`/${DIARY}/${WRITE_MY_DIARY}`)"
+          >일기쓰기</a-button
+        >
+      </div>
     </div>
+    <div v-else>loading...</div>
   </div>
 </template>
 <script lang="ts">
@@ -69,6 +72,7 @@ export default defineComponent({
   },
   props: ["isFixedWidth"],
   setup() {
+    const isLoading = ref(false);
     const router = useRouter();
     const diaries = useDiariesStore();
     const { authUser } = useAuth();
@@ -76,6 +80,7 @@ export default defineComponent({
 
     async function getDiaries() {
       try {
+        isLoading.value = true;
         const docRef = doc(db, "my-diary", authUser.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -85,11 +90,11 @@ export default defineComponent({
               ...el,
               date: el.date.toDate(),
             }));
-          console.log("docSnap", newDocSnap);
           diaries.$patch({ diaries: newDocSnap });
         } else {
           diaries.$patch({ diaries: [] });
         }
+        isLoading.value = false;
       } catch (error) {
         console.log("getDiaries error: ", error);
       }
@@ -98,11 +103,12 @@ export default defineComponent({
     watch(authUser, (newVal) => {
       if (newVal.email) {
         getDiaries();
+      } else {
+        isLoading.value = true;
       }
     });
 
     watch(diaries, (newVal) => {
-      // diarys.value = destructProxyObj(newVal.$state).diaries;
       diarys.value = newVal.diaries;
     });
 
@@ -118,6 +124,7 @@ export default defineComponent({
       DIARY_DETAIL,
       WRITE_MY_DIARY,
       DIARY,
+      isLoading,
     };
   },
 });
